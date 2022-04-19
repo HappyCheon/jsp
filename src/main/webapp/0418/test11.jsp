@@ -70,15 +70,22 @@
 		  <tr>
 		    <td>학년</td>
 		    <td>
-		      <select name="hakyun" class="form-control">
-						<option value="">학년을 선택하세요</option> 		
-						<option value="1">1학년</option> 		
-						<option value="2">2학년</option> 		
-						<option value="3">3학년</option> 		
-						<option value="4">4학년</option> 		
-						<option value="5">5학년</option> 		
-						<option value="6">6학년</option> 		
-					</select>
+		      <div class="row">
+		        <div class="col">
+				      <select name="hakyun" class="form-control">
+								<option value="">학년을 선택하세요</option> 		
+								<option value="1">1학년</option> 		
+								<option value="2">2학년</option> 		
+								<option value="3">3학년</option> 		
+								<!-- <option value="4">4학년</option> 		
+								<option value="5">5학년</option> 		
+								<option value="6">6학년</option>  -->		
+							</select> &nbsp;&nbsp;
+						</div>
+						<div class="col">
+						  기타 : <input type="number" value="4" name="hakyunOption" min="4" max="6"/>
+						</div>
+					</div>
 				</td>
 			</tr>
 			<tr>
