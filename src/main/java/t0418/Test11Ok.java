@@ -22,13 +22,58 @@ public class Test11Ok extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String no = request.getParameter("no");
 		String hakyun = request.getParameter("hakyun");
+		String hakyunOption = request.getParameter("hakyunOption");
 		int kor = Integer.parseInt(request.getParameter("kor"));
 		int eng = Integer.parseInt(request.getParameter("eng"));
 		int mat = Integer.parseInt(request.getParameter("mat"));
+		String[] sports = request.getParameterValues("sports");
+		String otherSports = request.getParameter("otherSports")==null ? "" : request.getParameter("otherSports");
+		String[] language = request.getParameterValues("language");
 		
+		String strSports = "";
+		String strLanguage = "";
+		
+		if(sports != null) {
+			for(String sport : sports) {
+				if(sport.equals("기타")) {
+					if(otherSports.trim().length() <= 0) {
+						out.println("<script>");
+						out.println("alert('기타항목을 선택하셨으면 기타란에 입력하세요.');");
+						out.println("history.back();");
+						out.println("</script>");
+						return;
+					}
+					strSports += otherSports;
+				}
+				if(!sport.equals("기타")) strSports += sport + " / ";
+			}
+		}
+		else {
+			out.println("<script>");
+			out.println("alert('좋아하는 스포츠를 1개 이상 입력하세요.');");
+			out.println("history.back();");
+			out.println("</script>");
+			return;
+		}
+		if(language == null) {
+			out.println("<script>");
+			out.println("alert('사용가능언어를 선택하세요.');");
+			out.println("history.back();");
+			out.println("</script>");
+			return; 
+		}
+		else {
+			strLanguage = "";
+			for(String lang : language) {
+				strLanguage += lang + " / ";
+			}
+		}
+			
 		int tot;
 		double avg;
 		String grade;
+		
+		if(hakyun.equals("")) hakyun = hakyunOption;
 		
 		tot = kor + eng + mat;
 		avg = tot / 3.0;
@@ -61,6 +106,8 @@ public class Test11Ok extends HttpServlet {
 		out.println("<br/>총점 : " + tot);
 		out.println("<br/>평균 : " + avg);
 		out.println("<br/>학점 : " + grade);
+		out.println("<br/>좋아하는 스포츠 : " + strSports);
+		out.println("<br/>사용 가능한 컴퓨터 언어 : " + strLanguage);
 		out.println("<br/><a href='"+request.getContextPath()+"/0418/test11.jsp'>돌아가기</>");
 	}
 }

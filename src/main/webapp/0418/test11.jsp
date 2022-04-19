@@ -16,6 +16,9 @@
     	let kor = myForm.kor.value;
     	let eng = myForm.eng.value;
     	let mat = myForm.mat.value;
+    	let sports = myForm.sports.value;
+    	let otherSports = myForm.otherSports.value;
+    	//alert(sports);
     	
     	if(name == "") {
     		alert("성명을 입력하세요!");
@@ -25,12 +28,28 @@
     		alert("학생 번호를 입력하세요!");
     		myForm.no.focus();
     	}
+    	else if(sports == "") {
+    		alert("좋아하는 스포츠를 1개이상 선택 하세요!");
+    	}
+    	else if(sports == "기타" && otherSports == "") {
+    		myForm.otherSports.focus();
+    	}
+    	/* 
     	else if(hakyun == "") {
     		alert("학년을 입력하세요!");
-    		myForm.hakyun.focus();
+    		myForm.hakyunOption.focus();
     	}
+    	 */
     	else {
     		myForm.submit();
+    	}
+    }
+    
+    function sportsCheck() {
+    	let sports = myForm.sports.value;
+    	if(sports == '기타') {
+    	//if(sports.indexOf('기타') != -1) {
+    		myForm.otherSports.focus();
     	}
     }
   </script>
@@ -57,18 +76,32 @@
 	      <td><input type="text" name="name" class="form-control" autofocus /></td>
 	    </tr>
 	    <tr>
-	      <td>성별</td>
+	      <th>성별</th>
 	      <td>
 	        <input type="radio" name="gender" value="남" checked/>남 &nbsp;&nbsp;
 		      <input type="radio" name="gender" value="여">여
 		    </td>
 		  </tr>
+	    <tr>
+	      <th>사용가능컴퓨터언어</th>
+	      <td>
+	        <input type="checkbox" name="language" value="JAVA"/>JAVA &nbsp;
+	        <input type="checkbox" name="language" value="Database"/>Database &nbsp;
+	        <input type="checkbox" name="language" value="HTML5"/>HTML5 &nbsp;
+	        <input type="checkbox" name="language" value="CSS3"/>CSS3 &nbsp;
+	        <input type="checkbox" name="language" value="Javascript"/>Javascript &nbsp;
+	        <input type="checkbox" name="language" value="jQuery"/>jQuery &nbsp;
+	        <input type="checkbox" name="language" value="JSP"/>JSP &nbsp;
+	        <input type="checkbox" name="language" value="aJax"/>aJax &nbsp;
+	        <input type="checkbox" name="language" value="SpringFramework"/>SpringFramework &nbsp;
+		    </td>
+		  </tr>
 		  <tr>
-		    <td>학생번호</td>
+		    <th>학생번호</th>
 		    <td><input type="number" name="no" class="form-control"/></td>
 		  </tr>
 		  <tr>
-		    <td>학년</td>
+		    <th>학년</th>
 		    <td>
 		      <div class="row">
 		        <div class="col">
@@ -89,16 +122,36 @@
 				</td>
 			</tr>
 			<tr>
-			  <td>국어</td>
+			  <th>국어</th>
 			  <td><input type="number" name="kor" value="0" class="form-control"/></td>
 			</tr>
 			<tr>
-			  <td>영어</td>
+			  <th>영어</th>
 			  <td><input type="number" name="eng" value="0" class="form-control"/></td>
 			</tr>
 			<tr>
-			  <td>수학</td>
+			  <th>수학</th>
 			  <td><input type="number" name="mat" value="0" class="form-control"/></td>
+			</tr>
+			<tr>
+			  <th>좋아하는스포츠</th>
+			  <td>
+			    <select name="sports" size="5" multiple onchange="sportsCheck()">
+			      <option value="축구">축구</option>
+			      <option value="야구">야구</option>
+			      <option value="농구">농구</option>
+			      <option value="탁구">탁구</option>
+			      <option value="배구">배구</option>
+			      <option value="수영">배구</option>
+			      <option value="마라톤">마라톤</option>
+			      <option value="멀리뛰기">멀리뛰기</option>
+			      <option value="등산">등산</option>
+			      <option value="볼링">볼링</option>
+			      <option value="태권도">태권도</option>
+			      <option value="기타">기타</option>
+			    </select> &nbsp;&nbsp;
+			    기타 <input type="text" name="otherSports"/>
+			  </td>
 			</tr>
 			<tr>
 			  <td colspan="2">
