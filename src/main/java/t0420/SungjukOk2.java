@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/sungjukOk")
-public class SungjukOk extends HttpServlet {
+public class SungjukOk2 extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -98,10 +98,6 @@ public class SungjukOk extends HttpServlet {
 		}
 		
 		SungjukVO vo = new SungjukVO(name, gender, no, hakyun, kor, eng, mat, tot, avg, grade, sports, otherSports, language, strSports, strLanguage);
-		
-		// (문제)
-		// setter를 통하여 값을 주입해 본다.
-		// 단, setter에 저장되는, 수치는 모두 양의 정수이고, 학년은 1~6, 국어/영어/수학 점수는 0~100 까지만 입력처리되어야 한다.
 		
 		request.setAttribute("vo", vo);
 		

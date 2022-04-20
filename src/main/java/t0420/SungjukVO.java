@@ -13,6 +13,8 @@ public class SungjukVO {
 	
 	private String strSports;
 	private String strLanguage;
+
+	public SungjukVO() {}
 	
 	public SungjukVO(String name, String gender, String no, String hakyun, int kor, int eng, int mat, int tot, double avg,
 			String grade, String[] sports, String otherSports, String[] language, String strSports, String strLanguage) {
