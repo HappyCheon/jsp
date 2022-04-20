@@ -3,6 +3,7 @@ package t0420;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -98,8 +99,16 @@ public class SungjukOk extends HttpServlet {
 		
 		SungjukVO vo = new SungjukVO(name, gender, no, hakyunOption, kor, eng, mat, tot, avg, grade, sports, otherSports, language, strSports, strLanguage);
 		
+		request.setAttribute("vo", vo);
+		
 		// 값을 vo에 담아서 Fornt로 전송한다.
-		// 1번방식 : response.sendRedirect()
-		response.sendRedirect(request.getContextPath()+"/0420/sungjukView.jsp?vo="+vo);
+		// 1번방식 : response.sendRedirect() - request객체에 담은 값의 전송은 불가함.
+		// response.sendRedirect(request.getContextPath()+"/0420/sungjukView.jsp?vo="+vo);
+		
+		// 2번 방식 : forword방식
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/0420/sungjukView.jsp");
+		dispatcher.forward(request, response);
+		
+		
 	}
 }

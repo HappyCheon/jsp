@@ -1,10 +1,15 @@
+<%@page import="t0420.SungjukVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
   request.setCharacterEncoding("utf-8");
   
-	String strVo = request.getParameter("vo");
+	//String strVo = request.getParameter("vo");
 	
-	System.out.println("strVo : " + strVo);
+	//SungjukVO vo = (SungjukVO) request.getParameter("vo");
+	
+	SungjukVO vo = (SungjukVO) request.getAttribute("vo");
+	
+	System.out.println("vo : " + vo);
 %>
 <!DOCTYPE html>
 <html>
