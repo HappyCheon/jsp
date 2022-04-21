@@ -47,6 +47,8 @@
     	<%@ include file="pds.jsp" %>
 <%  } else if (flag.equals("photo")) { %>
     	<%@ include file="photo.jsp" %>
+<%  } else if (flag.equals("test1")) { %>
+    	<%@ include file="../0421/init/test1.jsp" %>
 <%  } else { %>
 		    <!-- 아래는 메인 구역 -->
 		    <br/>

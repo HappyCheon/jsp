@@ -19,6 +19,40 @@
   	<url-pattern>/T09</url-pattern>
   </servlet-mapping>
   
+	<!-- 
+  <servlet>
+  	<servlet-name>t0421_init</servlet-name>
+  	<servlet-class>t0421.T0421_init</servlet-class>
+  	특정 서블릿에 초기값을 할당한다.
+  	<init-param>
+  		<param-name>mid</param-name>
+  		<param-value>admin</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>pwd</param-name>
+  		<param-value>1234</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>className</param-name>
+  		<param-value>INSA</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>t0421_init</servlet-name>
+  	<url-pattern>/Tinit</url-pattern>
+  </servlet-mapping>
+	 -->
+	 
+	 <!-- 공통변수로 초기값 할당하기 -->
+	 <context-param>
+	 		<param-name>logoName</param-name>
+	 		<param-value>Java Green Company</param-value>
+	 </context-param>
+	 <context-param>
+	 		<param-name>homeAddress</param-name>
+	 		<param-value>www.javagreencompany.com</param-value>
+	 </context-param>
+  
   <!-- Filter 매핑처리 -->
   <!-- 
   <filter>
