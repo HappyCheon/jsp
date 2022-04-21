@@ -109,7 +109,7 @@ public class SungjukOk extends HttpServlet {
 		// 1번방식 : response.sendRedirect() - request객체에 담은 값의 전송은 불가함.
 		// response.sendRedirect(request.getContextPath()+"/0420/sungjukView.jsp?vo="+vo);
 		
-		// 2번 방식 : forword방식
+		// 2번 방식 : forword방식 - request객체에 자료를 담아서 전송하는 방식
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/0420/sungjukView.jsp");
 		dispatcher.forward(request, response);
 		

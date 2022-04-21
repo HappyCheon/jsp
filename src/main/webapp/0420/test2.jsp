@@ -15,6 +15,13 @@
     서블릿파일명 : t0420.Test2
     컨트롤러경로명 : tt02Ok
   </pre>
+  <form name="myForm" method="post" action="<%=request.getContextPath()%>/tt02Ok">
+    <div class="row">
+      <div class="col text-center">수를 입력하세요 :</div>
+      <div class="col"><input type="number" name="su" value="10" autofocus /></div>
+	    <div class="col"><input type="submit" value="거듭제곱" class="btn btn-success"/></div>
+    </div>
+  </form>
 </div>
 <p><br/></p>
 </body>

@@ -14,7 +14,7 @@
   <h2>JSP Form Tag 연습(GET.Post방식)</h2>
   <!-- <form name="myForm" method="get" action="test07Ok.jsp"> -->
   <!-- <form name="myForm" method="get" action="../T07"> -->
-  <form name="myForm" method="post" action="../T07_2">
+  <form name="myForm" method="post" action="../insa/T072">
   	<p>아이디 : <input type="text" name="mid" autofocus /></p>
   	<p>비밀번호 : <input type="password" name="pwd" /></p>
   	<p>

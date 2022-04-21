@@ -2,16 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
   System.out.println("이곳은 sungjukView.jsp 입니다");
-  request.setCharacterEncoding("utf-8");
-  /* 
+  //request.setCharacterEncoding("utf-8");
+  
 	String strVo = request.getParameter("vo");
 	System.out.println("strVo : " + strVo);
-	 */
+	/* 
 	SungjukVO vo = (SungjukVO) request.getAttribute("vo");
 	
 	System.out.println("vo : " + vo);
+	 */
 %>
-
+<%--
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,3 +72,4 @@
 <p><br/></p>
 </body>
 </html>
+ --%>

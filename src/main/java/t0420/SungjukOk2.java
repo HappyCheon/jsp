@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/sungjukOk")
+@WebServlet("/sungjukOk2")
 public class SungjukOk2 extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,12 +98,14 @@ public class SungjukOk2 extends HttpServlet {
 		}
 		
 		SungjukVO vo = new SungjukVO(name, gender, no, hakyun, kor, eng, mat, tot, avg, grade, sports, otherSports, language, strSports, strLanguage);
-		
+//		System.out.println("1.server에서의 vo : " + vo);
 		request.setAttribute("vo", vo);
 		
 		// 값을 vo에 담아서 Fornt로 전송한다.
-		// 1번방식 : response.sendRedirect() - request객체에 담은 값의 전송은 불가함.
-		// response.sendRedirect(request.getContextPath()+"/0420/sungjukView.jsp?vo="+vo);
+		// 1번방식 : response.sendRedirect() - request객체에 담은 값과는 상관없이 get방식으로 전달한다.
+//		response.sendRedirect(request.getContextPath()+"/0420/sungjukView.jsp?vo="+vo);
+//		System.out.println("2.server에서의 vo : " + vo);
+		
 		
 		// 2번 방식 : forword방식
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/0420/sungjukView.jsp");

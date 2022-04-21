@@ -1,4 +1,4 @@
-<%@page import="t0420.SungjukVO"%>
+<%@ page import="t0420.SungjukVO3"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
   System.out.println("이곳은 sungjukView.jsp 입니다");
@@ -6,10 +6,11 @@
   /* 
 	String strVo = request.getParameter("vo");
 	System.out.println("strVo : " + strVo);
-	 */
-	SungjukVO vo = (SungjukVO) request.getAttribute("vo");
+	*/
+	SungjukVO3 vo = (SungjukVO3) request.getAttribute("vo");
 	
 	System.out.println("vo : " + vo);
+	
 %>
 
 <!DOCTYPE html>
@@ -54,12 +55,6 @@
     </tr>
     <tr>
       <th>학점</th><td><%=vo.getGrade() %></td>
-    </tr>
-    <tr>
-      <th>좋아하는스포츠</th><td><%=vo.getStrSports() %></td>
-    </tr>
-    <tr>
-      <th>사용가능언어</th><td><%=vo.getStrLanguage() %></td>
     </tr>
     <tr>
       <td colspan="2">

@@ -58,7 +58,7 @@
 <p><br/></p>
 <div class="container">
   <h2>성적입력</h2>
-	<form name="myForm" method="post" action="<%=request.getContextPath()%>/sungjukOk">
+	<form name="myForm" method="post" action="<%=request.getContextPath()%>/sungjukOk2">
 	  <table class="table">
 	    <tr>
 	      <th>성명</th>

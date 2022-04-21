@@ -5,6 +5,7 @@
 
 	String name = request.getParameter("name");
 	int price = request.getParameter("price")==null ? 0 : Integer.parseInt(request.getParameter("price"));
+	String adminSw = request.getParameter("adminSw");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,7 @@
   <h2>이곳은 test1FormAdmin.jsp 파일입니다.</h2>
   <p>성명 : <%=name %></p>
 	<p>가격 : <%=price %></p>
+	<p>adminSw : <%=adminSw %></p>
   <p><a href="test1Form.jsp">돌아가기</a></p>
 </div>
 <p><br/></p>
