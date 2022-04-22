@@ -21,25 +21,13 @@
   <h2>세션 확인</h2>
   <hr/>
   <table class="table table-hover">
-    <tr class="table table-dark text-white">
-      <th>세션명</th><th>세션값</th>
-    </tr>
 <%
     Enumeration names = session.getAttributeNames();
 
 		while(names.hasMoreElements()) {
-			String name = (String) names.nextElement();
-			String value;
-			if(name.equals("sAge")) {
-				int intValue = (int) session.getAttribute(name);
-				value = intValue + "";
-			}
-			else {
-			  value = (String) session.getAttribute(name);
-			}
 			out.println("<tr>");
-			out.println("<td>"+name+"</td>");
-			out.println("<td>"+value+"</td>");
+			out.println("<td>세션명</td>");
+			out.println("<td>"+names.nextElement()+"</td>");
 			out.println("</tr>");
 		}
 %>
