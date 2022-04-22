@@ -18,10 +18,10 @@ public class EncodingFilter implements Filter {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 	
-		System.out.println("이곳은 Filter 수행 ~~전~~ 입니다.");
+		//System.out.println("이곳은 Filter 수행 ~~전~~ 입니다.");
 		
 	  chain.doFilter(request, response);
 		
-		System.out.println("이곳은 Filter 수행 ~~후~~ 입니다.");
+		//System.out.println("이곳은 Filter 수행 ~~후~~ 입니다.");
 	}
 }
