@@ -29,7 +29,7 @@
       <div class="col">${sNickName}</div>
     </div>
     <div class="row m-3">
-      <div class="col">세션 아이디</div>
+      <div class="col">세션 나이</div>
       <div class="col">${sAge}</div>
     </div>
     <div class="row m-3">

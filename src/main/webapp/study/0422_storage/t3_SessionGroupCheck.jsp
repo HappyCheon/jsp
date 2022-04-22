@@ -20,12 +20,13 @@
 <div class="container">
   <h2>세션 확인</h2>
   <hr/>
-  <table class="table table-hover">
+  <table class="table table-hover text-center">
     <tr class="table table-dark text-white">
-      <th>세션명</th><th>세션값</th>
+      <th>번호</th><th>세션명</th><th>세션값</th>
     </tr>
 <%
     Enumeration names = session.getAttributeNames();
+		int cnt = 0;
 
 		while(names.hasMoreElements()) {
 			String name = (String) names.nextElement();
@@ -37,7 +38,9 @@
 			else {
 			  value = (String) session.getAttribute(name);
 			}
+			cnt++;
 			out.println("<tr>");
+			out.println("<td>"+cnt+"</td>");
 			out.println("<td>"+name+"</td>");
 			out.println("<td>"+value+"</td>");
 			out.println("</tr>");

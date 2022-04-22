@@ -11,8 +11,6 @@
   	cookie.setMaxAge(5*60);
   	response.addCookie(cookie);
   	
-  	session.setAttribute("sMid", mid);		// 로그인 성공한 사용자의 아이디를 세션으로 저장시킨다.
-  	
   	out.println("<script>");
   	out.println("alert('"+mid+"님 로그인 되셨습니다.');");
   	out.println("location.href='t2_LoginMember.jsp';");

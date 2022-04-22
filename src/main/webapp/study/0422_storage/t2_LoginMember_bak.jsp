@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+  Cookie[] cookies = request.getCookies();
+	String mid = "";
+
+  for(int i=0; i<cookies.length; i++) {
+  	if(cookies[i].getName().equals("cMid")) {
+  		mid = cookies[i].getValue();
+  		break;
+  	}
+  }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +23,7 @@
 <div class="container text-center">
   <h2>회원 전용방</h2>
   <hr/>
-  <p><font color="blue"><b>${sMid}</b></font>님 로그인 중이십니다.</p>
+  <p><font color="blue"><b><%=mid %></b></font>님 로그인 중이십니다.</p>
   <p><img src="<%=request.getContextPath()%>/images/1.jpg" width="400px"/></p>
   <hr/>
   <div class="row">
