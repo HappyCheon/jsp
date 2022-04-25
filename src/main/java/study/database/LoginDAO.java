@@ -49,8 +49,8 @@ public class LoginDAO {
 	}
 
 	// 로그인 체크(id, pwd체크)
-	public int loginCheck(String mid, String pwd) {
-		int res = 0;
+	public LoginVO loginCheck(String mid, String pwd) {
+		vo = new LoginVO();
 		
 		try {
 			sql = "select * from login where mid=? and pwd=?";
@@ -59,14 +59,40 @@ public class LoginDAO {
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) res = 1;
+			if(rs.next()) {
+				vo.setName(rs.getString("name"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setvCount(rs.getInt("vCount"));
+			}
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
 		
-		return res;
+		return vo;
+	}
+
+	// 접속포인트와 방문횟수를 각각 1씩 누적처리한다.
+	public void setUpdate(String mid) {
+		try {
+			sql = "update login set point = point + 1, vCount = vCount + 1 where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+//			pstmt.close();
+//			
+//			sql = "update login set vCount = vCount + 1 where mid = ?";
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, mid);
+//			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		
 	}
 	
 	
