@@ -3,6 +3,7 @@ package study.database;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // @WebServlet("/login")
-public class Login_bak extends HttpServlet {
+public class Login_bak2 extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 한글처리(filter에서 처리했음)
@@ -46,10 +47,15 @@ public class Login_bak extends HttpServlet {
 			
 			dao.setUpdate(mid);	// 접속포인트와 방문횟수를 각각 1씩 증가시킨다.
 			
-			out.println("<script>");
-			out.println("alert('"+vo.getName()+"님 로그인 되셨습니다.');");
-			out.println("location.href='"+request.getContextPath()+"/study/database/loginMain.jsp?point="+vo.getPoint()+"&vCount="+vo.getvCount()+"';");
-			out.println("</script>");
+			// 메세지 호출컨트롤러가 필요함....
+			
+			 request.setAttribute("vo", vo);
+//			request.setAttribute("point", vo.getPoint());
+//			request.setAttribute("vCount", vo.getvCount());
+			
+			//System.out.println("이곳은 Login.java입니다.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/study/database/loginMain.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 }

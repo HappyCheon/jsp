@@ -76,7 +76,7 @@ public class LoginDAO {
 	// 접속포인트와 방문횟수를 각각 1씩 누적처리한다.
 	public void setUpdate(String mid) {
 		try {
-			sql = "update login set point = point + 1, vCount = vCount + 1 where mid = ?";
+			sql = "update login set point = point + 1, vCount = vCount + 1, lastDate = now() where mid = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.executeUpdate();
@@ -93,6 +93,33 @@ public class LoginDAO {
 			pstmtClose();
 		}
 		
+	}
+
+	// 개별자료 조회
+	public LoginVO getSearch(String mid) {
+		vo = new LoginVO();
+		try {
+			sql = "select * from login where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(mid);											// vo.setMid(rs.getString("mid"));
+			vo.setPwd(rs.getString("pwd"));
+			vo.setName(rs.getString("name"));
+			vo.setPoint(rs.getInt("point"));
+			vo.setLastDate(rs.getString("lastDate"));
+			vo.setvCount(rs.getInt("vCount"));
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		
+		return vo;
 	}
 	
 	

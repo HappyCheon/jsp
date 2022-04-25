@@ -3,7 +3,6 @@ package study.database;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +38,8 @@ public class Login extends HttpServlet {
 			// 2.로그인폼에서 '아이디저장'을 선택한 경우는 '아이디'를 쿠키에 저장, 선택해제시는 쿠키에서 삭제처리한다.
 			// 3.한번 접속할때마다 접속포인트 1씩을 증가시켜준다.
 			// 4.접속 포인트 수 1 증가.
-			// 5. 정상로그인 되면 회원메인페이지로 보낸다.
+			// 5.최종방문일자 업데이트
+			// 6. 정상로그인 되면 회원메인페이지로 보낸다.
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("sMid", mid);
@@ -47,15 +47,10 @@ public class Login extends HttpServlet {
 			
 			dao.setUpdate(mid);	// 접속포인트와 방문횟수를 각각 1씩 증가시킨다.
 			
-			// 메세지 호출컨트롤러가 필요함....
-			
-			 request.setAttribute("vo", vo);
-//			request.setAttribute("point", vo.getPoint());
-//			request.setAttribute("vCount", vo.getvCount());
-			
-			//System.out.println("이곳은 Login.java입니다.");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/study/database/loginMain.jsp");
-			dispatcher.forward(request, response);
+			out.println("<script>");
+			out.println("alert('"+vo.getName()+"님 로그인 되셨습니다.');");
+			out.println("location.href='"+request.getContextPath()+"/study/database/loginMain.jsp?point="+vo.getPoint()+"&vCount="+vo.getvCount()+"';");
+			out.println("</script>");
 		}
 	}
 }
