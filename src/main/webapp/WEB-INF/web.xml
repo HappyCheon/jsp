@@ -52,6 +52,26 @@
 	 		<param-name>homeAddress</param-name>
 	 		<param-value>www.javagreencompany.com</param-value>
 	 </context-param>
+	 
+	<!-- error 페이지 설정하기 -->
+	<!-- 
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error500.jsp</location>
+	</error-page>
+	 -->
   
   <!-- Filter 매핑처리 -->
   <!-- 
