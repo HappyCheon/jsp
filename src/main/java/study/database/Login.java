@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ public class Login extends HttpServlet {
 		
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
+		String idSave = request.getParameter("idSave")==null ? "off" : request.getParameter("idSave");
 		
 		LoginDAO dao = new LoginDAO();
 		
@@ -44,6 +46,16 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sName", vo.getName());
+			
+			// 쿠키에 아이디(mid)를 저장(?) - Yes/No
+			Cookie cookieMid = new Cookie("cMid", mid);
+			if(idSave.equals("on")) {
+				cookieMid.setMaxAge(60*60*24*7);	// cookieMid 쿠키 만료시간은 7일
+			}
+			else {
+				cookieMid.setMaxAge(0);	// cookieMid 쿠키 삭제
+			}
+			response.addCookie(cookieMid);
 			
 			dao.setUpdate(mid);	// 접속포인트와 방문횟수를 각각 1씩 증가시킨다.
 			

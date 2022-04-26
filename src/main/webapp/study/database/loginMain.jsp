@@ -1,3 +1,4 @@
+<%@ include file="/include/memberCheck.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
@@ -28,6 +29,7 @@
     <div class="col"><a href="${ctp}/loginSearch" class="btn btn-success form-control">개인 정보조회</a></div>
     <div class="col"><a href="${ctp}/loginUpdate" class="btn btn-success form-control">개인 정보수정</a></div>
     <div class="col"><a href="${ctp}/loginDelete" class="btn btn-success form-control">회원 탈퇴</a></div>
+    <div class="col"><a href="${ctp}/loginList" class="btn btn-success form-control">전체 회원</a></div>
     <div class="col"><a href="${ctp}/logOut" class="btn btn-success form-control">로그아웃</a></div>
   </div>
 </div>

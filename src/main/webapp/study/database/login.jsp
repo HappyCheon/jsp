@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null) {
+		for(int i=0; i<cookies.length; i++) {
+			if(cookies[i].getName().equals("cMid")) {
+				pageContext.setAttribute("mid", cookies[i].getValue());
+				break;
+			}
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +28,7 @@
   	  </tr>
   	  <tr>
   	  	<th class="bg-secondary text-white">아이디</th>
-  	  	<td><input type="text" name="mid" value="hkd1234" autofocus class="form-control"/></td>
+  	  	<td><input type="text" name="mid" value="${mid}" autofocus class="form-control"/></td>
   	  </tr>
   	  <tr>
   	  	<th class="bg-secondary text-white">비밀번호</th>
@@ -27,8 +38,8 @@
   	    <td colspan="2">
   	      <button type="submit" class="btn btn-success">로그인</button> &nbsp;&nbsp;
   	      <button type="reset" class="btn btn-success">다시입력</button> &nbsp;&nbsp;
-  	      <button type="reset" class="btn btn-success">회원가입</button> &nbsp;&nbsp;&nbsp;
-  	      <input type="checkbox" name="idSave" id="idSave" checked />아이디저장
+  	      <button type="button" onclick="location.href='loginJoin.jsp';" class="btn btn-success">회원가입</button> &nbsp;&nbsp;&nbsp;
+  	      <input type="checkbox" name="idSave" checked />아이디저장
   	    </td>
   	  </tr>
   	</table>
