@@ -37,7 +37,8 @@
     <tr><td colspan=2></td></tr>
   </table>
   <hr/>
-  <p><a href="${ctp}/study/database/loginMain.jsp?point=${vo.point}&vCount=${vo.vCount}" class="btn btn-success">돌아가기</a></p>
+  <%-- <p><a href="${ctp}/study/database/loginMain.jsp?point=${vo.point}&vCount=${vo.vCount}" class="btn btn-success">돌아가기</a></p> --%>
+  <p><a href="${ctp}/loginMain" class="btn btn-success">돌아가기</a></p>
 </div>
 <p><br/></p>
 </body>

@@ -1,4 +1,4 @@
-<%-- <%@ include file="/include/memberCheck.jsp" %> --%>
+<%@ include file="/include/memberCheck.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
@@ -32,8 +32,7 @@
   <p><img src="<%=request.getContextPath()%>/images/1.jpg" width="400px"/></p>
   <hr/>
   <%-- <p>방문횟수 : <%=vCount%> / 포인트 : <%=point%></p> --%>
-  <%-- <p>방문횟수 : ${param.vCount} / 포인트 : ${param.point}</p> --%>
-  <p>방문횟수 : ${vo.vCount} / 포인트 : ${vo.point}</p>
+  <p>방문횟수 : ${param.vCount} / 포인트 : ${param.point}</p>
   <hr/>
   <div class="row">
     <div class="col"><a href="${ctp}/loginSearch" class="btn btn-success form-control m-1">개인 정보조회</a></div>

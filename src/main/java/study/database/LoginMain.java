@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/loginUpdate")
-public class LoginUpdate extends HttpServlet {
+@WebServlet("/loginMain")
+public class LoginMain extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
 		String mid = (String) session.getAttribute("sMid");
 		
-	  // 보안처리(비로그인시에 처리한다.)
+		// 보안처리(비로그인시에 처리한다.)
 		if(mid == null) {
 			response.sendRedirect(request.getContextPath()+"/log");
 			return;
@@ -30,7 +30,7 @@ public class LoginUpdate extends HttpServlet {
 		
 		request.setAttribute("vo", vo);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/study/database/loginUpdate.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/study/database/loginMain.jsp");
 		dispatcher.forward(request, response);
 	}
 }

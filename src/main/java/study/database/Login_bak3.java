@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
+//@WebServlet("/login")
+public class Login_bak3 extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 한글처리(filter에서 처리했음)
@@ -61,7 +61,7 @@ public class Login extends HttpServlet {
 			
 			out.println("<script>");
 			out.println("alert('"+vo.getName()+"님 로그인 되셨습니다.');");
-			out.println("location.href='"+request.getContextPath()+"/loginMain';");
+			out.println("location.href='"+request.getContextPath()+"/study/database/loginMain.jsp?point="+vo.getPoint()+"&vCount="+vo.getvCount()+"';");
 			out.println("</script>");
 		}
 	}

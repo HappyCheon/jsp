@@ -1,3 +1,4 @@
+<%-- <%@ include file="/include/memberCheck.jsp" %> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
@@ -36,7 +37,8 @@
       <tr>
         <td colspan="2">
           <input type="button" value="회원정보수정" onclick="fCheck()" class="btn btn-success"/> &nbsp;
-          <input type="button" value="돌아가기" onclick="location.href='${ctp}/study/database/loginMain.jsp';" class="btn btn-success"/>
+          <%-- <input type="button" value="돌아가기" onclick="location.href='${ctp}/study/database/loginMain.jsp';" class="btn btn-success"/> --%>
+          <input type="button" value="돌아가기" onclick="location.href='${ctp}/loginMain';" class="btn btn-success"/>
         </td>
       </tr>
     </table>

@@ -3,7 +3,6 @@ package study.database;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +28,8 @@ public class LoginUpdateOk extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		if(res == 1) {
+			session.setAttribute("sName", vo.getName());
+			
 			out.println("<script>");
 			out.println("alert('회원정보가 수정되었습니다.');");
 			out.println("location.href='"+request.getContextPath()+"/loginUpdate';");
