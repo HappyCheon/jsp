@@ -39,7 +39,7 @@
 <%  } %>
   </table>
   <p><br/></p>
-  <p><a href="loginMain.jsp" class="btn btn-secondary">돌아가기</a>
+  <p><a href="${ctp}/study/database/loginMain.jsp" class="btn btn-secondary">돌아가기</a>
 </div>
 <p><br/></p>
 </body>

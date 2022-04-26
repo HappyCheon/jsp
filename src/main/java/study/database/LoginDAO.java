@@ -191,6 +191,41 @@ public class LoginDAO {
 		
 		return vos;
 	}
-	
+
+	// 회원 탈퇴
+	public int setLoginDelete(String mid) {
+		int res = 0;
+		try {
+			sql = "delete from login where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	// 회원 정보 수정하기
+	public int setUpdate(LoginVO vo) {
+		int res = 0;
+		try {
+			sql = "update login set pwd = ?, name = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getMid());
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
 	
 }

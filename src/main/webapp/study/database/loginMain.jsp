@@ -13,6 +13,15 @@
   <title>loginMain.jsp</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  	'use strict';
+    function delCheck() {
+			let ans = confirm("정말 탈퇴하시겠습니까?");
+			if(ans) {
+				location.href = "${ctp}/loginDelete";
+			}
+		}
+  </script>
 </head>
 <body>
 <p><br/></p>
@@ -28,7 +37,7 @@
   <div class="row">
     <div class="col"><a href="${ctp}/loginSearch" class="btn btn-success form-control">개인 정보조회</a></div>
     <div class="col"><a href="${ctp}/loginUpdate" class="btn btn-success form-control">개인 정보수정</a></div>
-    <div class="col"><a href="${ctp}/loginDelete" class="btn btn-success form-control">회원 탈퇴</a></div>
+    <div class="col"><a href="javascript:delCheck();" class="btn btn-success form-control">회원 탈퇴</a></div>
     <div class="col"><a href="${ctp}/loginList" class="btn btn-success form-control">전체 회원</a></div>
     <div class="col"><a href="${ctp}/logOut" class="btn btn-success form-control">로그아웃</a></div>
   </div>
