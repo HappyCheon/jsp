@@ -20,8 +20,9 @@
         <div class="dropdown">
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/urlMapping">URL(디렉토리)매핑</a>
-			      <a class="dropdown-item" href="#">URL(확장자)매핑</a>
-			      <a class="dropdown-item" href="#">Link 3</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.url">URL(확장자)매핑</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.url2">URL(확장자)매핑2</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.um">URL(확장자)매핑3</a>
 			      <a class="dropdown-item" href="#">Link 4</a>
 			      <a class="dropdown-item" href="#">Link 5</a>
 			      <a class="dropdown-item" href="#">Link 6</a>

@@ -21,8 +21,8 @@
   </div>
   <hr/>
   <div><a href="${ctp}/study1/urlMappingList" class="btn btn-info form-control m-1">Directory Pattern으로 정보리스트 이동</a></div>
-  <div><a href="#" class="btn btn-info form-control m-1">Extension Pattern으로 정보리스트 이동</a></div>
-  <div><a href="#" class="btn btn-info form-control m-1">Extension Pattern으로 정보등록창 이동</a></div>
+  <div><a href="${ctp}/urlMappingList.um" class="btn btn-info form-control m-1">Extension Pattern으로 정보리스트 이동</a></div>
+  <div><a href="${ctp}/urlMappingJoin.um" class="btn btn-info form-control m-1">Extension Pattern으로 정보등록창 이동</a></div>
   <div><a href="${ctp}/" class="btn btn-info form-control m-1">홈으로</a></div>
 </div>
 <p><br/></p>

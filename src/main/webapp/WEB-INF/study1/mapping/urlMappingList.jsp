@@ -40,7 +40,8 @@
     <tr><td colspan="6" class="p-0"></td></tr>
   </table>
   <br/>
-  <p class="text-center"><a href="${ctp}/study1/urlMapping" class="btn btn-secondary">돌아가기</a>
+  <%-- <p class="text-center"><a href="${ctp}/study1/urlMapping" class="btn btn-secondary">돌아가기</a> --%>
+  <p class="text-center"><a href="${ctp}/urlMapping.um" class="btn btn-secondary">돌아가기</a>
 </div>
 <p><br/></p>
 <%@ include file="/include/footer.jsp" %>
