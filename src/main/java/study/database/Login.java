@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 			session.setAttribute("sName", vo.getName());
 			
 			// 쿠키에 아이디(mid)를 저장(?) - Yes/No
-			Cookie cookieMid = new Cookie("cMid", mid);
+			Cookie cookieMid = new Cookie("cMid", mid);  // 쿠키변수 'cMid'에 사용자 아이디인 'mid'를 넣어서 생성한다.
 			if(idSave.equals("on")) {
 				cookieMid.setMaxAge(60*60*24*7);	// cookieMid 쿠키 만료시간은 7일
 			}
