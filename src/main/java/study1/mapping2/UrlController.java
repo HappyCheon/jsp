@@ -30,6 +30,26 @@ public class UrlController extends HttpServlet {
 		else if(com.equals("urlMappingJoin")) {
 			viewPage = "/WEB-INF/study1/mapping/urlMappingJoin.jsp";
 		}
+		else if(com.equals("urlMappingJoinOk")) {
+			command = new UrlMappingJoinOkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		else if(com.equals("urlMappingDelete")) {
+			command = new UrlMappingDeleteCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		else if(com.equals("urlMappingUpdate")) {
+			command = new UrlMappingUpdateCommand();
+			command.execute(request, response);
+			viewPage = "/WEB-INF/study1/mapping/urlMappingUpdate.jsp";
+		}
+		else if(com.equals("urlMappingUpdateOk")) {
+			command = new UrlMappingUpdateOkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

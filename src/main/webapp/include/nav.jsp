@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item font-weight-bold">
-        <a class="nav-link" href="#">GUEST</a>
+        <a class="nav-link" href="<%=request.getContextPath()%>/guestList.gu">GUEST</a>
       </li>
       <li class="nav-item font-weight-bold">
         <a class="nav-link" href="#">BOARD</a>
