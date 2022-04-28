@@ -23,7 +23,7 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.url">URL(확장자)매핑</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.url2">URL(확장자)매핑2</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.um">URL(확장자)매핑3</a>
-			      <a class="dropdown-item" href="#">Link 4</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/adminLogin.gu">관리자인증</a>
 			      <a class="dropdown-item" href="#">Link 5</a>
 			      <a class="dropdown-item" href="#">Link 6</a>
 			    </div>

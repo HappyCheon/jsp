@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
+  String admin = session.getAttribute("sAdmin")==null ? "" : (String) session.getAttribute("sAdmin");
   ArrayList<GuestVO> vos = (ArrayList<GuestVO>) request.getAttribute("vos");
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
@@ -22,20 +23,43 @@
 <p><br/></p>
 <div class="container">
   <h2 class="text-center m-3">방 명 록 리 스 트</h2>
-  <div class="text-right mb-2">
-    <a href="${ctp}/guestInput.gu" class="btn btn-secondary">글쓰기</a>
+  <div class="row mb-2">
+<%
+    if(!admin.equals("adminOk")) { %>
+    <div class="col text-left"><a href="${ctp}/adminLogin.gu" class="btn btn-secondary">관리자</a></div>
+<%  } else { %>
+    <div class="col text-left"><a href="${ctp}/adminLogOut.gu" class="btn btn-secondary">관리자로그아웃</a></div>
+<%  } %>
+    <div class="col text-right"><a href="${ctp}/guestInput.gu" class="btn btn-secondary">글쓰기</a></div>
   </div>
 <%
   GuestVO vo = new GuestVO();
   for(int i=0; i<vos.size(); i++) {
   	vo = vos.get(i);
 
+  	String email = vo.getEmail();
+  	if(email.equals("") || email == null) email = "- 없음 -";
+  	
+  	String homepageStr = vo.getHomepage();
+  	String homepage = !homepageStr.equals("") ? homepageStr.substring(7) : "";
+  	if(homepage.equals("") || homepage == null) {
+  		homepage = "- 없음 -";
+  	}
+  	else {
+  		homepage = "<a href='"+homepageStr+"' target='_blank'>"+homepageStr+"</a>";
+  	}
+  	
   	String vDate = vo.getvDate().substring(0,19);
   	String content = vo.getContent().replace("\n", "<br/>");
 %>
     <table class="table table-borderless m-0 p-0">
       <tr>
-        <td class="text-left">방문번호 : <%=vo.getIdx() %></td>
+        <td class="text-left">
+          방문번호 : <%=vo.getIdx() %>
+<% 				if(admin.equals("adminOk")) { %>
+            &nbsp;[<a href="#">삭제</a>]
+<% 				} %>
+        </td>
         <td class="text-right">방문IP : <%=vo.getHostIp() %></td>
       </tr>
     </table>
@@ -48,11 +72,11 @@
 	    </tr>
 	    <tr>
 	      <th>전자우편</th>
-	      <td colspan="3"><%=vo.getEmail() %></td>
+	      <td colspan="3"><%=email %></td>
 	    </tr>
 	    <tr>
 	      <th>홈페이지</th>
-	      <td colspan="3"><%=vo.getHomepage() %></td>
+	      <td colspan="3"><%=homepage %></td>
 	    </tr>
 	    <tr>
 	      <th>글내용</th>

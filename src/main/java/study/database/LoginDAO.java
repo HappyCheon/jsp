@@ -227,5 +227,24 @@ public class LoginDAO {
 		}
 		return res;
 	}
+
+	// 관리자 인증확인하기
+	public int getAdminCheck(String mid, String pwd) {
+		int res = 0;
+		try {
+			sql = "select mid from login where mid=? and pwd=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, pwd);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return res;
+	}
 	
 }

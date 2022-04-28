@@ -28,7 +28,8 @@
     </div>
     <div class="form-group">
       <label for="homepage">Homepage</label>
-      <input type="text" class="form-control" name="homepage" id="homepage" placeholder="Homepage를 입력하세요."/>
+      <!-- <input type="text" class="form-control" name="homepage" id="homepage" placeholder="Homepage를 입력하세요."/> -->
+      <input type="text" class="form-control" name="homepage" id="homepage" value="http://"/>
       <div class="invalid-feedback">홈페이지는 선택 입력사항입니다.</div>
     </div>
     

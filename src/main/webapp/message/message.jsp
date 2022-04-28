@@ -23,6 +23,9 @@
     else if(msg == "loginUpdateNo") msg = "회원정보가 수정이 되지 않았습니다.";
     else if(msg == "guestInputOk") msg = "방명록에 글이 접수되었습니다.";
     else if(msg == "guestInputNo") msg = "방명록에 글이 입력되지 않았습니다.";
+    else if(msg == "adminOk") msg = "관리자 인증 확인!!!";
+    else if(msg == "adminNo") msg = "관리자 인증 실패~~~";
+    else if(msg == "adminLogOutOk") msg = "관리자 로그아웃 되었습니다.";
 
     alert(msg);
     if(url != "") location.href = url;
