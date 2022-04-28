@@ -45,6 +45,11 @@ public class GuestController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/message/message.jsp";
 		}
+		else if(com.equals("guestDelete")) {
+			command = new GuestDeleteCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

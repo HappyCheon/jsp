@@ -5,11 +5,6 @@
 <%
   String admin = session.getAttribute("sAdmin")==null ? "" : (String) session.getAttribute("sAdmin");
   ArrayList<GuestVO> vos = (ArrayList<GuestVO>) request.getAttribute("vos");
-  
-  int pag = (int) request.getAttribute("pag");
-  int totPage = (int) request.getAttribute("totPage");
-  int pageSize = (int) request.getAttribute("pageSize");
-  int curScrStartNo = (int) request.getAttribute("curScrStartNo");
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -68,7 +63,7 @@
     <table class="table table-borderless m-0 p-0">
       <tr>
         <td class="text-left">
-          방문번호 : <%=curScrStartNo %>
+          방문번호 : <%=no %>
 <% 				if(admin.equals("adminOk")) { %>
             <%-- &nbsp;[<a href="${ctp}/guestDelete.gu?idx=<%=vo.getIdx()%>">삭제</a>] --%>
             &nbsp;[<a href="javascript:delCheck(<%=vo.getIdx()%>);">삭제</a>]
@@ -99,21 +94,9 @@
     </table>
     <br/>
 <%
-		curScrStartNo--;
+    no--;
   }
 %>
-  <!-- 페이징 처리 -->
-  <div>
-    [<a href="guestList.gu?pag=1">첫페이지</a>]
-    <%if(pag > 1) { %>
-        [<a href="guestList.gu?pag=<%=pag-1%>">이전페이지</a>]
-    <%} %>
-    <%=pag %>Page / <%=totPage %>Pages 
-    <%if(pag != totPage) { %>
-        [<a href="guestList.gu?pag=<%=pag+1%>">다음페이지</a>]
-    <%} %>
-    [<a href="guestList.gu?pag=<%=totPage%>">마지막페이지</a>]
-  </div>
   
 <% %>
 

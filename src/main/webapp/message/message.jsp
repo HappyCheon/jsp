@@ -26,6 +26,8 @@
     else if(msg == "adminOk") msg = "관리자 인증 확인!!!";
     else if(msg == "adminNo") msg = "관리자 인증 실패~~~";
     else if(msg == "adminLogOutOk") msg = "관리자 로그아웃 되었습니다.";
+    else if(msg == "guestDeleteOk") msg = "게시글이 삭제되었습니다.";
+    else if(msg == "guestDeleteNo") msg = "게시글이 삭제되지 않았습니다.";
 
     alert(msg);
     if(url != "") location.href = url;
