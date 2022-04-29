@@ -120,12 +120,14 @@ public class GuestDAO {
 	public int totRecCnt() {
 		int totRecCnt = 0;
 		try {
-			sql = "select count(*) from guest";
+			// sql = "select count(*) from guest";
+			sql = "select count(*) as cnt from guest";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			totRecCnt = rs.getInt(1);
+			// totRecCnt = rs.getInt("cnt");
+			totRecCnt = rs.getInt("cnt");
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
 		} finally {

@@ -41,6 +41,16 @@ public class GuestListCommand implements GuestInterface {
 		// 6. 현재 화면에 보이는 방문소감의 시작번호
 		int curScrStartNo = totRecCnt - startIndexNo;
 		
+		// 블록페이징처리시 아래 내용 추가(7,8,9번)....
+		// 7. 한블록의 크기(여기선 3으로 지정 - 한블럭에 3Page를 보여준다.)
+		int blockSize = 3;
+		
+		// 8. 현재블록(curBlock)의 위치(첫번째 블록을 0으로 한다.)를 구한다.
+		int curBlock = (pag - 1) / blockSize;
+		
+		// 9. 마지막블록(lastBlock)을 구한다.
+		int lastBlock = (totPage % blockSize)==0 ? (totPage / blockSize) - 1 : (totPage / blockSize);
+		
 		// 총 레코드를 구한다.(페이징처리시는 한페이지의 분량만 구해온다.)
 		ArrayList<GuestVO> vos = dao.getGuestList(startIndexNo, pageSize);
 		
@@ -48,7 +58,9 @@ public class GuestListCommand implements GuestInterface {
 		request.setAttribute("curScrStartNo", curScrStartNo);
 		request.setAttribute("pag", pag);
 		request.setAttribute("totPage", totPage);
-		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("blockSize", blockSize);
+		request.setAttribute("curBlock", curBlock);
+		request.setAttribute("lastBlock", lastBlock);
 	}
 
 }

@@ -29,7 +29,8 @@ public class GuestInputOkCommand implements GuestInterface {
 		
 		if(res == 1) {
 			request.setAttribute("msg", "guestInputOk");
-			request.setAttribute("url", request.getContextPath()+"/guestList.gu");
+			//request.setAttribute("url", request.getContextPath()+"/guestList.gu");
+			request.setAttribute("url", "guestList.gu");
 		}
 		else {
 			request.setAttribute("msg", "guestInputNo");

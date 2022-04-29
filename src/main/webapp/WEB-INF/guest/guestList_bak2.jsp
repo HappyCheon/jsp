@@ -8,10 +8,8 @@
   
   int pag = (int) request.getAttribute("pag");
   int totPage = (int) request.getAttribute("totPage");
+  //int pageSize = (int) request.getAttribute("pageSize");
   int curScrStartNo = (int) request.getAttribute("curScrStartNo");
-  int blockSize = (int) request.getAttribute("blockSize");
-  int curBlock = (int) request.getAttribute("curBlock");
-  int lastBlock = (int) request.getAttribute("lastBlock");
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -120,33 +118,19 @@
 		curScrStartNo--;
   }
 %>
-  <!-- 블록 페이징 처리 시작 -->
+  <!-- 페이징 처리 시작 -->
   <div class="text-center">
-  	<%if(pag != 1) { %>
-        [<a href="guestList.gu?pag=1">첫페이지</a>]
+    [<a href="guestList.gu?pag=1">첫페이지</a>]
+    <%if(pag > 1) { %>
+        [<a href="guestList.gu?pag=<%=pag-1%>">이전페이지</a>]
     <%} %>
-    
-    
-    <%if(curBlock > 0) { %>
-        [<a href="guestList.gu?pag=<%=(curBlock-1)*blockSize + 1%>">이전블록</a>]
-    <%} %>
-    <%
-    	for(int i=(curBlock*blockSize)+1; i<=(curBlock*blockSize)+blockSize; i++) {
-    		if(i > totPage) break;
-    		if(i == pag) out.println("[<a href='guestList.gu?pag="+i+"'><font color='red'><b>"+i+"</b></font></a>]");
-    		else out.println("[<a href='guestList.gu?pag="+i+"'>"+i+"</a>]");
-    	}
-    %>
-    <%if(curBlock < lastBlock) { %>
-        [<a href="guestList.gu?pag=<%=(curBlock+1)*blockSize + 1%>">다음블록</a>]
-    <%} %>
-    
-    
+    <%=pag %>Page / <%=totPage %>Pages
     <%if(pag != totPage) { %>
-    	[<a href="guestList.gu?pag=<%=totPage%>">마지막페이지</a>]
+        [<a href="guestList.gu?pag=<%=pag+1%>">다음페이지</a>]
     <%} %>
+    [<a href="guestList.gu?pag=<%=totPage%>">마지막페이지</a>]
   </div>
-  <!-- 블록 페이징 처리 끝 -->
+  <!-- 페이징 처리 끝 -->
  
 </div>
 <p><br/></p>
