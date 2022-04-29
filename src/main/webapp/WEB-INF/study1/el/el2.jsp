@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
@@ -39,7 +41,71 @@
   num1 : ${num1}<br/>
   num1[0] : ${num1[0]}<br/>
   num1[4] : ${num1[4]}<br/>
-  num1[5] : ${num1[5]}<br/>
+  num1[5] : ${num1[5]}<br/><br/>
+  <h5>관계/논리 연산자</h5>
+  num1[0] = ${num1[0]} / num2[0] = ${num2[0]}<br/><br/>
+  
+  num1[0] == num2[0] : ${num1[0] == num2[0]}<br/>
+  num1[0] eq num2[0] : ${num1[0] eq num2[0]}<br/>
+  num1[0] != num2[0] : ${num1[0] != num2[0]}<br/>
+  num1[0] ne num2[0] : ${num1[0] ne num2[0]}<br/>
+  num1[0] > num2[0] : ${num1[0] > num2[0]}<br/>
+  num1[0] gt num2[0] : ${num1[0] gt num2[0]}<br/>
+  num1[0] < num2[0] : ${num1[0] < num2[0]}<br/>
+  num1[0] lt num2[0] : ${num1[0] lt num2[0]}<br/>
+  num1[0] >= num2[0] : ${num1[0] >= num2[0]}<br/>
+  num1[0] ge num2[0] : ${num1[0] ge num2[0]}<br/>
+  num1[0] <= num2[0] : ${num1[0] <= num2[0]}<br/>
+  num1[0] le num2[0] : ${num1[0] le num2[0]}<br/>
+  
+  <hr/>
+<%
+	ArrayList<String> arrVos = new ArrayList<>();
+  arrVos.add("홍길동");
+  arrVos.add("김말숙");
+  arrVos.add("이기자");
+  arrVos.add("오하늘");
+  
+  pageContext.setAttribute("arrVos", arrVos);
+%>
+  <h3>EL표기법으로 객체(ArrayList)를 출력(표현)하기</h3>
+  arrVos : ${arrVos}<br/>
+  arrVos[0] : ${arrVos[0]}<br/>
+  
+<%
+  HashMap<String, String> mapVos = new HashMap<>();
+	mapVos.put("성명", "홍길순");
+	mapVos.put("나이", "25");
+	mapVos.put("요일", "월요일");
+	
+	pageContext.setAttribute("mapVos", mapVos);
+%>
+  <h3>EL표기법으로 객체(Map)를 출력(표현)하기</h3>
+  mapVos : ${mapVos}<br/>
+  mapVos["성명"] : ${mapVos["성명"]}<br/>
+  <hr/>
+
+<%
+  pageContext.setAttribute("var1", "문자");
+  pageContext.setAttribute("var2", "");
+  pageContext.setAttribute("var3", null);
+%>
+  <h4>Null값처리</h4>
+	var1 : ${var1}<br/>  
+	var2 : ${var2}<br/>  
+	var3 : ${var3}<br/>  
+  == 비교 : ${var1 == ""}<br/>
+  == 비교 : ${var2 == ""}<br/>
+  == 비교 : ${var3 == ""}<br/><br/>
+  null 비교 : ${var1 == null}<br/>
+  null= 비교 : ${var2 == null}<br/>
+  null= 비교 : ${var3 == null}<br/>
+  연산자: empty - EL에서는 null과 ""(공백)을 동시에 비교할 수 있다.<br/>
+  var1 == null || var1 == ""  ==>> EL에서는? ${empty var1}<br/>
+  var2 == null || var2 == ""  ==>> EL에서는? ${empty var2}<br/>
+  var3 == null || var3 == ""  ==>> EL에서는? ${empty var3}<br/>
+  문제 : var1 == null || var1 == "" 인가???? ${empty var1 ? "OK" : var1}<br/>
+  문제 : var3 == null || var3 == "" 인가???? ${empty var3 ? "OK" : var3}<br/>
   <p><hr/><br/><a href="el.st" class="btn btn-secondary">돌아가기</a></p>
 </div>
 <p><br/></p>
