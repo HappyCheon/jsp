@@ -31,6 +31,14 @@ public class StudyController extends HttpServlet {
 		else if(com.equals("jstl2")) {
 			viewPage += "/study1/el_JSTL/jstl2.jsp";
 		}
+		else if(com.equals("shaPass")) {
+			viewPage += "/study1/sha/shaPass.jsp";
+		}
+		else if(com.equals("shaPassOk")) {
+			command = new ShaPassOkCommand();
+			command.execute(request, response);
+			viewPage += "/study1/sha/shaPass.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

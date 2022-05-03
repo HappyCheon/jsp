@@ -30,6 +30,20 @@
 			    </div>
 			  </div>
       </li>
+      <li class="nav-item font-weight-bold">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Study2</a>
+        <div class="dropdown">
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/shaPass.st">SHA 암호화</a>
+			    </div>
+			  </div>
+      </li>
+      <li class="nav-item font-weight-bold">
+        <a class="nav-link" href="<%=request.getContextPath()%>/memLogin.mem">Login</a>
+      </li>
+      <li class="nav-item font-weight-bold">
+        <a class="nav-link" href="<%=request.getContextPath()%>/memJoin.mem">Join</a>
+      </li>
     </ul>
   </div>  
 </nav>
