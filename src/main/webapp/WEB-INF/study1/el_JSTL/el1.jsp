@@ -34,7 +34,7 @@
   name = <%=name %><br/>
   su1 = <%=su1 %><br/>
   su2 = <%=su2 %><br/><br/>
-  <h4>EL을 이용한 출력1(param을 이용한 출력 : 앞의 jsp에서 폼태그(get방식)로 넘긴자료를 받을때)</h4>
+  <h4>EL을 이용한 출력1(param을 이용한 출력 : 앞의 jsp에서 폼태그(get/post방식)로 넘긴자료를 받을때)</h4>
   atom = ${param.atom}<br/>
   name = ${param.name}<br/>
   su1 = ${param.su1}<br/>

@@ -25,7 +25,8 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.um">URL(확장자)매핑3</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/adminLogin.gu">관리자인증</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/el.st">EL연습</a>
-			      <a class="dropdown-item" href="#">JSTL연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL연습1</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL연습2</a>
 			    </div>
 			  </div>
       </li>

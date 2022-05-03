@@ -20,13 +20,16 @@ public class StudyController extends HttpServlet {
 		String com = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
 		if(com.equals("el")) {
-			viewPage += "/study1/el/el1.jsp";
+			viewPage += "/study1/el_JSTL/el1.jsp";
 		}
 		else if(com.equals("el2")) {
-			viewPage += "/study1/el/el2.jsp";
+			viewPage += "/study1/el_JSTL/el2.jsp";
 		}
-		else if(com.equals("____")) {
-			viewPage += "";
+		else if(com.equals("jstl1")) {
+			viewPage += "/study1/el_JSTL/jstl1.jsp";
+		}
+		else if(com.equals("jstl2")) {
+			viewPage += "/study1/el_JSTL/jstl2.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

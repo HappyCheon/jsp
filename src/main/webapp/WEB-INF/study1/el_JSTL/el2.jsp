@@ -107,7 +107,54 @@
   문제 : var1 == null || var1 == "" 인가???? ${empty var1 ? "OK" : var1}<br/>
   문제 : var3 == null || var3 == "" 인가???? ${empty var3 ? "OK" : var3}<br/>
   <p><hr/><br/><a href="el.st" class="btn btn-secondary">돌아가기</a></p>
+  <hr/><hr/>
+  
+  <!-- forEach연습하기 -->
+<%
+  String[] hobbys = request.getParameterValues("hobby");
+  pageContext.setAttribute("hobbys", hobbys);
+%>
+  전송된 취미는?<br/>
+  <c:forEach var="hobby" items="${hobbys}" varStatus="st">
+    ${st.count}. ${hobby}<br/>
+    <c:set var="cnt" value="${st.count}"/>
+  </c:forEach>
+  전체 선택한 취미의 건수는? ${cnt}건<br/>
+  <hr/>
+  
+<%
+  String hobbys2 = "등산/낚시/바둑/영화감상/수영";
+  request.setAttribute("hobbys2", hobbys2);
+%>
+  <p>토큰(특정 기호값)을 이용한 분리 : forTokens</p>
+  취미 :
+  <c:forTokens var="hobby" items="${hobbys2}" delims="/">
+  	${hobby} / &nbsp;
+  </c:forTokens>
 </div>
+<br/>
+<hr/>
+<p>1.문제: 앞의 취미중, '바둑'은 '빨강색', '수영'은 '파랑색'으로 출력(나머지는 검정)</p>
+<p>
+  취미 :
+  <c:forTokens var="hobby" items="${hobbys}" delims="/">
+  	<c:if test="${hobby == '바둑'}"><font color="red">${hobby}</font> /</c:if>
+  	<c:if test="${hobby == '수영'}"><font color="blue">${hobby}</font> /</c:if>
+  	<c:if test="${hobby != '바둑' && hobby != '수영'}">${hobby} /</c:if>
+  </c:forTokens>
+</p>
+<hr/>
+<p>2.문제 : 취미중 '바둑'은 빨강색으로, '수영'은 '파랑색'으로 출력하시오.(나머지는 그대로 출력)<br/>
+  취미 :
+  <c:forTokens var="hobby" items="${hobbys}" delims="/">
+    <c:choose>
+      <c:when test="${hobby == '바둑'}"><font color="red">${hobby}</font> /</c:when>
+      <c:when test="${hobby == '수영'}"><font color="red">${hobby}</font> /</c:when>
+  		<c:otherwise>${hobby} /</c:otherwise>
+  	</c:choose>
+  </c:forTokens>
+</p>
+<hr/>
 <p><br/></p>
 <%@ include file="/include/footer.jsp" %>
 </body>
