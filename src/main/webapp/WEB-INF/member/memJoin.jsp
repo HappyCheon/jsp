@@ -13,11 +13,28 @@
   	'use strict';
     // 회원가입폼 체크후 서버로 전송하기
     function fCheck() {
+    	let regMid = /^[a-z0-9_]{4,20}$/;
+      let regPwd = /(?=.*[a-zA-ZS])(?=.*?[#?!@$%^&*-]).{6,24}/;
+      let regNickName = /^[가-힣]+$/;
+      let regName = /^[가-힣a-zA-Z]+$/;
+      let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      let regURL = /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/;
+      let regTel = /\d{2,3}-\d{3,4}-\d{4}$/g;
+      
+      let submitFlag = 0;
+    	
     	let mid = myForm.mid.value;
     	let pwd = myForm.pwd.value;
     	let nickName = myForm.nickName.value;
     	let name = myForm.name.value;
-    	let email1 = myform.email1.value;
+    	let email1 = myForm.email1.value;
+    	let email2 = myForm.email2.value;
+      let email = email1 + '@' + email2;
+      let homePage = myForm.homePage.value;
+      let tel1 = myForm.tel1.value;
+      let tel2 = myForm.tel2.value;
+      let tel3 = myForm.tel3.value;
+      let tel = myForm.tel1.value + "-" + myForm.tel2.value + "-" + myForm.tel3.value;
     	
     	// 사진 업로드 체크
     	let fName = myForm.fName.value;
@@ -25,6 +42,7 @@
     	let uExt = ext.toUpperCase();		// 확장자를 대문자로 변환
     	let maxSize = 1024 * 1024 * 2; 	// 업로드할 회원사진의 용량은 2MByte까지로 제한한다.
     	
+    	/*
     	if(mid == "") {
     		alert("아이디를 입력하세요");
     		myForm.mid.focus();
@@ -45,9 +63,46 @@
     		alert("이메일을 입력하세요");
     		myForm.email1.focus();
     	}
+    	*/
     	// 기타 추가로 체크해야 할 항목들을 모두 체크하세요.....
+    	if(!regMid.test(mid)) {
+        alert("아이디는 영문 소문자와 숫자, 언더바(_)만 사용가능합니다.(길이는 4~20자리까지 허용)");
+        myForm.mid.focus();
+      }
+      else if(!regPwd.test(pwd)) {
+        alert("비밀번호는 1개이상의 문자와 특수문자 조합의 6~24 자리로 작성해주세요.");
+        myForm.pwd.focus();
+      }
+      else if(!regNickName.test(nickName)) {
+        alert("닉네임은 한글만 사용가능합니다.");
+        myForm.nickName.focus();
+      }
+      else if(!regName.test(name)) {
+        alert("성명은 한글과 영문대소문자만 사용가능합니다.");
+        myForm.name.focus();
+      }
+      else if(!regEmail.test(email)) {
+        alert("이메일 형식에 맞지않습니다.");
+        myForm.email1.focus();
+      }
+      else if((homePage != "http://" && homePage != "")) {
+        if(!regURL.test(homePage)) {
+	        alert("작성하신 홈페이지 주소가 URL 형식에 맞지않습니다.");
+	        myForm.homePage.focus();
+        }
+      }
+      else if(tel2 != "" || tel3 != "") {
+	      if(!regTel.test(tel)) {
+	        alert("전화번호 형식에 맞지않습니다.(000-0000-0000)");
+	        myForm.tel2.focus();
+	        return false;
+	      }
+	      else {
+	    	  submitFlag = 1;
+	      }
+      }
     	else {
-    		// 전송전에 주소를 하나로 묶어서 전송처리 준비한다.
+    		// 전송전에 '주소'를 하나로 묶어서 전송처리 준비한다.
     		let postcode = myForm.postcode.value + " ";
     		let roadAddress = myForm.roadAddress.value + " ";
     		let detailAddress = myForm.detailAddress.value + " ";
@@ -73,8 +128,17 @@
     				alert("업로드 파일의 크기는 2MByte를 초과할수 없습니다.");
     				return false;
     			}
-    			myForm.submit();
     		}
+    		submitFlag = 1;
+    	}
+    	
+    	if(submitFlag == 1) {
+  			// 묶여진 필드를 폼태그안에 hidden태그의 값으로 저장시켜준다.(email/te.)
+  			
+  			myForm.submit();
+    	}
+    	else {
+    		alert("회원가입 실패~~");
     	}
     }
   </script>
@@ -83,7 +147,8 @@
 <%@ include file="/include/header_home.jsp" %>
 <%@ include file="/include/nav.jsp" %>
 <div class="container" style="padding:30px">
-  <form name="myForm" method="post" action="${ctp}/memJoinOk.mem" class="was-validated" enctype="Multipart/form-data">
+  <%-- <form name="myForm" method="post" action="${ctp}/memJoinOk.mem" class="was-validated" enctype="Multipart/form-data"> --%>
+  <form name="myForm" method="post" action="${ctp}/memJoinOk.mem" class="was-validated">
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
@@ -103,7 +168,7 @@
       <input type="text" class="form-control" id="name" placeholder="성명을 입력하세요." name="name" required />
     </div>
     <div class="form-group">
-      <label for="email">Email address:</label>
+      <label for="email1">Email address:</label>
 				<div class="input-group mb-3">
 				  <input type="text" class="form-control" placeholder="Email을 입력하세요." id="email1" name="email1" required />
 				  <div class="input-group-append">
@@ -160,11 +225,19 @@
     <div class="form-group">
       <label for="address">주소</label>
 			<input type="hidden" name="address" id="address">
-			<input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호">
-			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소"><br>
-			<input type="text" name="detailAddress" id="sample6_detailAddress" placeholder="상세주소">
-			<input type="text" name="extraAddress" id="sample6_extraAddress" placeholder="참고항목">
+			<div class="input-group mb-1">
+				<input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" class="form-control">
+				<div class="input-group-append">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary">
+				</div>
+			</div>
+			<input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1">
+			<div class="input-group mb-1">
+				<input type="text" name="detailAddress" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
+				<div class="input-group-append">
+					<input type="text" name="extraAddress" id="sample6_extraAddress" placeholder="참고항목" class="form-control">
+				</div>
+			</div>
     </div>
     <div class="form-group">
 	    <label for="homepage">Homepage address:</label>
@@ -248,8 +321,8 @@
       회원 사진(파일용량:2MByte이내) :
       <input type="file" name="fName" id="file" class="form-control-file border"/>
     </div>
-    <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button>
-    <button type="reset" class="btn btn-secondary">다시작성</button>
+    <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
+    <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
     <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/memLogin.mem';">돌아가기</button>
     <input type="hidden" name="photo"/>
   </form>
