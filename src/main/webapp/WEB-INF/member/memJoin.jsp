@@ -1,6 +1,14 @@
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
+<%
+  Date now = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String strNow = sdf.format(now);
+	pageContext.setAttribute("birthday", strNow);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +75,7 @@
     		myForm.email1.focus();
     	}
     	*/
+    	
     	// 기타 추가로 체크해야 할 항목들을 모두 체크하세요.....
     	if(!regMid.test(mid)) {
         alert("아이디는 영문 소문자와 숫자, 언더바(_)만 사용가능합니다.(길이는 4~20자리까지 허용)");
@@ -124,7 +133,7 @@
   		
   		// 전송전에 파일에 관한 사항체크...
   		if(fName.trim() == "") {
-  			myForm.photo.value = "noimage.jpg"
+  			myForm.photo.value = "noimage"
 				submitFlag = 1;
   		}
   		else {
@@ -150,7 +159,7 @@
     		if(idCheckSw == 0) {
     			alert("아이디 중복체크버튼을 눌러주세요!");
     		}
-    		else if(nickCheckSw == 0){
+    		else if(nickCheckSw == 0) {
     			alert("닉네임 중복체크버튼을 눌러주세요!");
     		}
     		else {
@@ -165,6 +174,36 @@
     		alert("회원가입 실패~~");
     	}
     }
+    
+    // id중복체크
+    function idCheck() {
+    	let mid = myForm.mid.value;
+    	let url = "${ctp}/memIdCheck.mem?mid="+mid;
+    	
+    	if(mid == "") {
+    		alert("아이디를 입력하세요!");
+    		myForm.mid.focus();
+    	}
+    	else {
+    		idCheckSw = 1;
+    		window.open(url,"nWin","width=580px,height=250px");
+    	}
+    }
+    
+    // nickName 중복체크
+    function nickCheck() {
+    	let nickName = myForm.nickName.value;
+    	let url = "${ctp}/memNickCheck.mem?nickName="+nickName;
+    	
+    	if(nickName == "") {
+    		alert("닉네임을 입력하세요!");
+    		myForm.nickName.focus();
+    	}
+    	else {
+    		nickCheckSw = 1;
+    		window.open(url,"nWin","width=580px,height=250px");
+    	}
+    }
   </script>
 </head>
 <body>
@@ -176,7 +215,7 @@
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
-      <label for="mid">아이디 : &nbsp; &nbsp;<input type="button" value="아이디 중복체크" class="btn btn-secondary" onclick="idCheck()"/></label>
+      <label for="mid">아이디 : &nbsp; &nbsp;<input type="button" value="아이디 중복체크" class="btn btn-secondary btn-sm" onclick="idCheck()"/></label>
       <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디를 입력하세요." required autofocus/>
     </div>
     <div class="form-group">
@@ -184,7 +223,7 @@
       <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="pwd" required />
     </div>
     <div class="form-group">
-      <label for="nickname">닉네임 : &nbsp; &nbsp;<input type="button" value="닉네임 중복체크" class="btn btn-secondary" onclick="nickCheck()"/></label>
+      <label for="nickName">닉네임 : &nbsp; &nbsp;<input type="button" value="닉네임 중복체크" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
       <input type="text" class="form-control" id="nickName" placeholder="별명을 입력하세요." name="nickName" required />
     </div>
     <div class="form-group">
@@ -222,7 +261,9 @@
     </div>
     <div class="form-group">
       <label for="birthday">생일</label>
-			<input type="date" name="birthday" class="form-control"/>
+      <%-- <c:set var="now" value="<%=new java.util.Date() %>"/>
+      <fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/> --%>
+			<input type="date" name="birthday" value="${birthday}" class="form-control"/>
     </div>
     <div class="form-group">
       <div class="input-group mb-3">
@@ -346,6 +387,7 @@
       <input type="file" name="fName" id="file" class="form-control-file border"/>
     </div>
     <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
+    <!-- <input type="button" value="회원가입" class="btn btn-secondary" onclick="fCheck()"> &nbsp; -->
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
     <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/memLogin.mem';">돌아가기</button>
     <input type="hidden" name="photo"/>

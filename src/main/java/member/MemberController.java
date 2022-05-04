@@ -32,6 +32,21 @@ public class MemberController extends HttpServlet {
 		else if(com.equals("memJoin")) {
 			viewPaged += "/member/memJoin.jsp";
 		}
+		else if(com.equals("memIdCheck")) {
+			command = new MemIdCheckCommand();
+			command.execute(request, response);
+			viewPaged += "/member/memIdCheck.jsp";
+		}
+		else if(com.equals("memNickCheck")) {
+			command = new MemNickCheckCommand();
+			command.execute(request, response);
+			viewPaged += "/member/memNickCheck.jsp";
+		}
+		else if(com.equals("memJoinOk")) {
+			command = new MemJoinOkCommand();
+			command.execute(request, response);
+			viewPaged = "/message/message.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPaged);
 		dispatcher.forward(request, response);
