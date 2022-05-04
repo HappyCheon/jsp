@@ -13,6 +13,7 @@
     
     let msg = '<%=msg%>';
     let url = '<%=url%>';
+    let val = '${val}';
     
     if(msg == "loginJoinOk") msg = "회원에 가입되었습니다.";
     else if(msg == "loginJoinNo") msg = "회원 가입 실패~~~";
@@ -28,6 +29,13 @@
     else if(msg == "adminLogOutOk") msg = "관리자 로그아웃 되었습니다.";
     else if(msg == "guestDeleteOk") msg = "게시글이 삭제되었습니다.";
     else if(msg == "guestDeleteNo") msg = "게시글이 삭제되지 않았습니다.";
+    else if(msg == "memJoinOk") msg = "회원에 가입되었습니다.";
+    else if(msg == "memJoinNo") msg = "회원가입 실패~~~";
+    else if(msg == "idCheckNo") msg = "아이디가 중복되었습니다.";
+    else if(msg == "nickCheckNo") msg = "닉네임이 중복되었습니다.";
+    else if(msg == "loginOk") msg = '${sMid}'+"님 로그인 되셨습니다.";
+    else if(msg == "loginNo") msg = "로그인 실패~~~";
+    else if(msg == "memLogOutOk") msg = val + "님 로그아웃 되셨습니다.";
 
     alert(msg);
     if(url != "") location.href = url;

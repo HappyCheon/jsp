@@ -87,7 +87,16 @@ public class MemJoinOkCommand implements MemberInterface {
 		vo.setContent(content);
 		vo.setUserInfor(userInfor);
 		
-		System.out.println("vo : " + vo);
+		int res = dao.setMemJoinOk(vo);
+		
+		if(res == 1) {
+			request.setAttribute("msg", "memJoinOk");
+			request.setAttribute("url", request.getContextPath()+"/memLogin.mem");
+		}
+		else {
+			request.setAttribute("msg", "memJoinNo");
+			request.setAttribute("url", request.getContextPath()+"/memJoin.mem");
+		}
 	}
 
 }

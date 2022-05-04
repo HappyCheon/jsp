@@ -9,7 +9,7 @@ create table member (
   gender		varchar(5)  default '남자',/* 성별 */
   birthday	datetime		default now(),/* 생일 */
   tel				varchar(15),							/* 전화번호(010-1234-5678) */
-  address   varchar(50),							/* 주소 */
+  address   varchar(100),							/* 주소 */
   email			varchar(50) not null,			/* 이메일(아이디/비밀번호 분실시 필요)-형식 체크할것 */
   homePage  varchar(50),							/* 홈페이지(블로그) 주소 */
   job				varchar(20),							/* 직업 */
