@@ -11,6 +11,9 @@
   <script src="${ctp}/js/woo.js"></script>
   <script>
   	'use strict';
+  	let idCheckSw = 0;
+  	let nickCheckSw = 0;
+  	
     // 회원가입폼 체크후 서버로 전송하기
     function fCheck() {
     	let regMid = /^[a-z0-9_]{4,20}$/;
@@ -21,7 +24,7 @@
       let regURL = /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/;
       let regTel = /\d{2,3}-\d{3,4}-\d{4}$/g;
       
-      let submitFlag = 0;
+      let submitFlag = 0;		// 전송체크버튼으로 값이 1이면 체크완료되어 전송처리한다.
     	
     	let mid = myForm.mid.value;
     	let pwd = myForm.pwd.value;
@@ -68,30 +71,40 @@
     	if(!regMid.test(mid)) {
         alert("아이디는 영문 소문자와 숫자, 언더바(_)만 사용가능합니다.(길이는 4~20자리까지 허용)");
         myForm.mid.focus();
+        return false;
       }
       else if(!regPwd.test(pwd)) {
         alert("비밀번호는 1개이상의 문자와 특수문자 조합의 6~24 자리로 작성해주세요.");
         myForm.pwd.focus();
+        return false;
       }
       else if(!regNickName.test(nickName)) {
         alert("닉네임은 한글만 사용가능합니다.");
         myForm.nickName.focus();
+        return false;
       }
       else if(!regName.test(name)) {
         alert("성명은 한글과 영문대소문자만 사용가능합니다.");
         myForm.name.focus();
+        return false;
       }
       else if(!regEmail.test(email)) {
         alert("이메일 형식에 맞지않습니다.");
         myForm.email1.focus();
+        return false;
       }
       else if((homePage != "http://" && homePage != "")) {
         if(!regURL.test(homePage)) {
 	        alert("작성하신 홈페이지 주소가 URL 형식에 맞지않습니다.");
 	        myForm.homePage.focus();
+	        return false;
         }
+        else {
+	    	  submitFlag = 1;
+	      }
       }
-      else if(tel2 != "" || tel3 != "") {
+    	
+      if(tel2 != "" || tel3 != "") {
 	      if(!regTel.test(tel)) {
 	        alert("전화번호 형식에 맞지않습니다.(000-0000-0000)");
 	        myForm.tel2.focus();
@@ -101,41 +114,52 @@
 	    	  submitFlag = 1;
 	      }
       }
-    	else {
-    		// 전송전에 '주소'를 하나로 묶어서 전송처리 준비한다.
-    		let postcode = myForm.postcode.value + " ";
-    		let roadAddress = myForm.roadAddress.value + " ";
-    		let detailAddress = myForm.detailAddress.value + " ";
-    		let extraAddress = myForm.extraAddress.value;
-    		myForm.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
-    		
-    		// 전송전에 파일에 관한 사항체크...
-    		if(fName.trim() == "") {
-    			myForm.photo.value = "noimage.jpg"
-    		}
-    		else {
-    			let fileSize = document.getElementById("file").files[0].size;
-    			
-    			if(uExt != "JPG" && uExt != "GIF" && uExt != "PNG") {
-    				alert("업로드 가능한 파일은 'JPG/GIF/PNG'파일 입니다.");
-    				return false;
-    			}
-    			else if(fName.indexOf(" ") != -1) {
-    				alert("업로드 파일명에 공백을 포함할 수 없습니다.");
-    				return false;
-    			}
-    			else if(fileSize > maxSize) {
-    				alert("업로드 파일의 크기는 2MByte를 초과할수 없습니다.");
-    				return false;
-    			}
-    		}
+    	
+  		// 전송전에 '주소'를 하나로 묶어서 전송처리 준비한다.
+  		let postcode = myForm.postcode.value + " ";
+  		let roadAddress = myForm.roadAddress.value + " ";
+  		let detailAddress = myForm.detailAddress.value + " ";
+  		let extraAddress = myForm.extraAddress.value;
+  		myForm.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
+  		
+  		// 전송전에 파일에 관한 사항체크...
+  		if(fName.trim() == "") {
+  			myForm.photo.value = "noimage.jpg"
+				submitFlag = 1;
+  		}
+  		else {
+  			let fileSize = document.getElementById("file").files[0].size;
+  			
+  			if(uExt != "JPG" && uExt != "GIF" && uExt != "PNG") {
+  				alert("업로드 가능한 파일은 'JPG/GIF/PNG'파일 입니다.");
+  				return false;
+  			}
+  			else if(fName.indexOf(" ") != -1) {
+  				alert("업로드 파일명에 공백을 포함할 수 없습니다.");
+  				return false;
+  			}
+  			else if(fileSize > maxSize) {
+  				alert("업로드 파일의 크기는 2MByte를 초과할수 없습니다.");
+  				return false;
+  			}
     		submitFlag = 1;
     	}
     	
+  		// 전송전에 모든 체크가 끝나서 submitFlag가 1이되면 서버로 전송한다.
     	if(submitFlag == 1) {
-  			// 묶여진 필드를 폼태그안에 hidden태그의 값으로 저장시켜준다.(email/te.)
-  			
-  			myForm.submit();
+    		if(idCheckSw == 0) {
+    			alert("아이디 중복체크버튼을 눌러주세요!");
+    		}
+    		else if(nickCheckSw == 0){
+    			alert("닉네임 중복체크버튼을 눌러주세요!");
+    		}
+    		else {
+	  			// 묶여진 필드(email/tel)를 폼태그안에 hidden태그의 값으로 저장시켜준다.
+	  			myForm.email.value = email;
+	  			myForm.tel.value = tel;
+	  			
+	  			myForm.submit();
+    		}
     	}
     	else {
     		alert("회원가입 실패~~");
@@ -325,6 +349,8 @@
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
     <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/memLogin.mem';">돌아가기</button>
     <input type="hidden" name="photo"/>
+    <input type="hidden" name="email"/>
+    <input type="hidden" name="tel"/>
   </form>
   <p><br/></p>
 </div>
