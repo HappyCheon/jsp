@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.plaf.metal.MetalMenuBarUI;
 
@@ -89,7 +90,7 @@ public class MemberDAO {
 	public MemberVO getMemLoginOk(String mid, String pwd) {
 		vo = new MemberVO();
 		try {
-			sql = "select * from member where mid = ? and pwd = ?";
+			sql = "select * from member where mid = ? and pwd = ? and userDel = 'NO'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.setString(2, pwd);
@@ -98,9 +99,6 @@ public class MemberDAO {
 				vo.setNickName(rs.getString("nickName"));
 				vo.setLevel(rs.getInt("level"));
 				vo.setLastDate(rs.getString("lastDate"));
-				vo.setPoint(rs.getInt("point") + 1);
-				vo.setTodayCnt(rs.getInt("todayCnt") + 1);
-				vo.setVisitCnt(rs.getInt("visitCnt") + 1);
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
@@ -110,10 +108,10 @@ public class MemberDAO {
 		return vo;
 	}
 
-	// 방문수,오늘방문수,포이트 증가하기
+	// 방문수,오늘방문수,포인트 증가하기
 	public void setMemPointUpdate(String mid) {
 		try {
-			sql = "update member set point=point+1, visitCnt=visitCnt+1, todayCnt=todayCnt+1 where mid=?";
+			sql = "update member set point=point+1, visitCnt=visitCnt+1, todayCnt=todayCnt+1, lastDate=now() where mid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.executeUpdate();
@@ -183,6 +181,120 @@ public class MemberDAO {
 			getConn.rsClose();
 		}
 		return guestCnt;
+	}
+
+	// 오늘처음 방문시는 오늘방문카운트(todayCnt)를 0으로 셋팅한다.
+	public void setTodayCntUpdate(String mid) {
+		try {
+			sql = "update member set todayCnt = 0 where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
+	// 회원자료 전체보기
+	public ArrayList<MemberVO> getMemList(int level) {
+		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
+		try {
+			if(level != 0) {
+				sql = "select * from member where userInfor = '공개' order by idx desc";
+			}
+			else {
+				sql = "SELECT *,TIMESTAMPDIFF(DAY, lastDate, NOW()) as applyDiff from member order by idx desc";
+			}
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO();
+				
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setName(rs.getString("name"));
+				vo.setGender(rs.getString("gender"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setJob(rs.getString("job"));
+			  vo.setHobby(rs.getString("hobby"));
+			  vo.setPhoto(rs.getString("photo"));
+			  vo.setContent(rs.getString("content"));
+			  vo.setUserInfor(rs.getString("userInfor"));
+			  vo.setUserDel(rs.getString("userDel"));
+			  vo.setPoint(rs.getInt("point"));
+			  vo.setLevel(rs.getInt("level"));
+			  vo.setVisitCnt(rs.getInt("visitCnt"));
+			  vo.setStartDate(rs.getString("startDate"));
+			  vo.setLastDate(rs.getString("lastDate"));
+			  vo.setTodayCnt(rs.getInt("todayCnt"));
+			  if(level == 0) vo.setApplyDiff(rs.getInt("applyDiff"));
+				
+			  vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	// 회원 등급 변경처리
+	public void setMemLevelChange(int idx, int level) {
+		try {
+			sql = "update member set level = ? where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, level);
+			pstmt.setInt(2, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
+	// 회원 탈퇴 신청 처리하기
+	public int setMemDeleteUpdate(String mid) {
+		int res = 0;
+		try {
+			sql = "update member set userDel = 'OK' where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 탈퇴신청후 30일이 경과된 회원을 DB에서 완전히 삭제처리한다.
+	public int setUserDelete(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from member where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
 	}
 	
 	

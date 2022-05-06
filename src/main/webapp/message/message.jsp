@@ -36,6 +36,11 @@
     else if(msg == "loginOk") msg = '${sMid}'+"님 로그인 되셨습니다.";
     else if(msg == "loginNo") msg = "로그인 실패~~~";
     else if(msg == "memLogOutOk") msg = val + "님 로그아웃 되셨습니다.";
+    else if(msg == "levelChangeOk") msg = "레벨이 변경되었습니다.";
+    else if(msg == "memDeleteUpdateOk") msg = "회원에서 탈퇴 되셨습니다.";
+    else if(msg == "memDeleteUpdateNo") msg = "회원에서 탈퇴 실패~~~";
+    else if(msg == "userDeleteOk") msg = "회원DB에서 삭제처리 시켰습니다.";
+    else if(msg == "userDeleteNo") msg = "회원DB에서 삭제처리 실패~~~";
 
     alert(msg);
     if(url != "") location.href = url;

@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
   int level = session.getAttribute("sLevel")==null? 99 : (int) session.getAttribute("sLevel"); 
 %>
+<script>
+  'use strict';
+  function memberDelCheck() {
+	  let ans = confirm("정말 탈퇴하시겠습니까?");
+	  if(ans) {
+		  ans = confirm("탈퇴후 1개월간은 같은아이디로 재가입하실수 없습니다.\n탈퇴 하시겠습니까?");
+		  if(ans) location.href="<%=request.getContextPath()%>/memDelete.mem";
+	  }
+  }
+</script>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -53,9 +64,11 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memMain.mem">회원방</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/">일정관리</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/">1:1문의</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memList.mem">회원리스트</a>
+			      <c:if test="${sLevel != 1}">
+			      	<a class="dropdown-item" href="<%=request.getContextPath()%>/memList.mem">회원리스트</a>
+			      </c:if>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memUpdate.mem">회원정보변경</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memDelete.mem">회원탈퇴</a>
+			      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
 <%          if(level == 0) { %>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/adMenu.ad">관리자메뉴</a>
 <%          } %>

@@ -32,3 +32,24 @@ desc member;
 insert into member values (default,'admin','1234','관리맨','관리자',default,default,'010-3423-2704','경기도 안성시 공도로 142', 'cjsk1126@naver.com','http://blog.daum.net/cjsk1126','프리랜서','등산/바둑',default,'관리자입니다.',default,default,default,default,default,default,default,default);
 
 select * from member;
+
+SELECT TIMESTAMPDIFF(DAY, '2022-05-01', '2022-05-06');
+SELECT TIMESTAMPDIFF(DAY, lastDate, NOW()) from member;
+SELECT TIMESTAMPDIFF(DAY, lastDate, NOW()) from member where userDel='OK';
+
+SELECT *,TIMESTAMPDIFF(DAY, lastDate, NOW()) as applyDiff from member order by idx desc;
+
+/*
+* DATEDIFF : 날짜 차이(2022-01-31)를 구하는 함수(날짜1 - 날짜2)
+* 사용법 : DATEDIFF(날짜1, 날짜2)
+* 사용예 :
+SELECT DATEDIFF('2022-05-01', '2022-05-06');
+
+* TIMESTAMPDIFF함수 : 날짜와 시간(2022-01-31 12:30:50) 차이를 구하는 함수(날짜2 - 날짜1)
+* 사용법 : TIMESTAMPDIFF(날짜1, 날짜2)
+* 단위 :
+  초 : SECOND , 분 : MINUTE , 시 : HOUR
+  일 : DAY , 월 : MONTH , 년 : YEAR
+* 사용예 :
+SELECT TIMESTAMPDIFF(DAY, '2022-05-01', '2022-05-06');
+*/

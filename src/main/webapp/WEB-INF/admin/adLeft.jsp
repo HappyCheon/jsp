@@ -22,8 +22,8 @@
   <h4>관리자메뉴</h4>
   <hr/>
   <p><a href="${ctp}/" target="_top">홈으로</a></p>
-  <p><a href="${ctp}/guestList.gu" target="adContent">방명록</a></p>
-  <p><a href="${ctp}/memList.mem" target="adContent">회원관리</a></p>
+  <p><a href="${ctp}/adGuestList.ad" target="adContent">방명록</a></p>
+  <p><a href="${ctp}/adMemList.ad" target="adContent">회원관리</a></p>
   <p><a href="${ctp}/" target="adContent">게시판</a></p>
   <p><a href="${ctp}/" target="adContent">게시판</a></p>
   <p><a href="${ctp}/" target="adContent">자료실</a></p>
