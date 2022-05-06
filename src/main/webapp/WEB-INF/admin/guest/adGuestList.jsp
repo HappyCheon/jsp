@@ -1,8 +1,9 @@
-<%@page import="guest.GuestVO"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("newLine", "\n"); %>
 <%
+  /*
   String admin = session.getAttribute("sAdmin")==null ? "" : (String) session.getAttribute("sAdmin");
   ArrayList<GuestVO> vos = (ArrayList<GuestVO>) request.getAttribute("vos");
   
@@ -12,6 +13,7 @@
   int blockSize = (int) request.getAttribute("blockSize");
   int curBlock = (int) request.getAttribute("curBlock");
   int lastBlock = (int) request.getAttribute("lastBlock");
+  */
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -36,116 +38,108 @@
 <div class="container">
   <h2 class="text-center m-3">방 명 록 리 스 트</h2>
   <div class="row mb-2">
-<%
-    if(!admin.equals("adminOk")) { %>
-		  <div class="col text-left">
-	      <a href="${ctp}/adminLogin.gu" class="btn btn-secondary">관리자</a>
-<%  } else { %>
-  	  <div class="col text-left"><a href="${ctp}/adminLogOut.gu" class="btn btn-secondary">관리자로그아웃</a></div>
-<%  } %>
-      <a href="${ctp}/guestInput.gu" class="btn btn-secondary">글쓰기</a>
-    </div>
-    <%-- <div class="col text-left"><a href="${ctp}/guestInput.gu" class="btn btn-secondary">글쓰기</a></div> --%>
+	  <div class="col text-left"></div>
+    
     <!-- 페이징 처리 시작 -->
 	  <div class="col text-right">
-	    <%if(pag > 1) { %>
-	        <a href="adGuestList.ad?pag=1" title="첫페이지">|◁</a>
-	        <a href="adGuestList.ad?pag=<%=pag-1%>" title="이전페이지">◀</a>
-	    <%} %>
-	    <%=pag %>Page / <%=totPage %>Pages
-	    <%if(pag != totPage) { %>
-	        <a href="adGuestList.ad?pag=<%=pag+1%>" title="다음페이지">▶</a>
-			    <a href="adGuestList.ad?pag=<%=totPage%>" title="마지막페이지">▷|</a>
-	    <%} %>
+	    <c:if test="${pag > 1}">
+        <a href="adGuestList.ad?pag=1" title="첫페이지">|◁</a>
+        <a href="adGuestList.ad?pag=${pag-1}" title="이전페이지">◀</a>
+	    </c:if>
+	    ${pag}Page / ${totPage}Pages
+	    <c:if test="${pag != totPage}">
+        <a href="adGuestList.ad?pag=${pag+1}" title="다음페이지">▶</a>
+		    <a href="adGuestList.ad?pag=${totPage}" title="마지막페이지">▷|</a>
+	    </c:if>
 	  </div>
 	  <!-- 페이징 처리 끝 -->
   </div>
-<%
-  GuestVO vo = new GuestVO();
-  int no = vos.size();
-  for(int i=0; i<vos.size(); i++) {
-  	vo = vos.get(i);
-
-  	String email = vo.getEmail();
-  	if(email.equals("") || email == null) email = "- 없음 -";
-  	
-  	String homepageStr = vo.getHomepage();
-  	String homepage = !homepageStr.equals("") ? homepageStr.substring(7) : "";
-  	if(homepage.equals("") || homepage == null) {
-  		homepage = "- 없음 -";
-  	}
-  	else {
-  		homepage = "<a href='"+homepageStr+"' target='_blank'>"+homepageStr+"</a>";
-  	}
-  	
-  	String vDate = vo.getvDate().substring(0,19);
-  	String content = vo.getContent().replace("\n", "<br/>");
-%>
+  <c:forEach var="vo" items="${vos}">
+    <c:set var="email" value="${vo.email}"/>
+    <c:if test="${empty email}"><c:set var="email" value="- 없음 -"/></c:if>
+    <c:set var="homepageStr" value="${vo.homepage}"/>
+    <c:if test="${!empty homepage}"><c:set var="homepageStr" value="${fn:substring(homePageStr,7,fn:length(homePageStr))}"/></c:if>
+    <c:if test="${empty homepage}"><c:set var="homepageStr" value=""/></c:if>
+    <c:if test="${empty homePage}"><c:set var="homePage" value="- 없음 -"/></c:if>
+    <%-- <c:if test="${!empty homePage}"><c:set var="homePage" value="<a href='"+homepageStr+"' target='_blank'>"+homepageStr+"</a>"/></c:if> --%>
+    <c:set var="vDate" value="${fn:substring(vo.vDate,0,19)}"/>
+    <c:set var="content" value="${fn:replace(vo.content,newLine,'<br/>')}"/>
     <table class="table table-borderless m-0 p-0">
       <tr>
         <td class="text-left pl-0">
-          방문번호 : <%=curScrStartNo %>
-<% 				if(admin.equals("adminOk")) { %>
-            <%-- &nbsp;[<a href="${ctp}/guestDelete.gu?idx=<%=vo.getIdx()%>">삭제</a>] --%>
-            &nbsp;[<a href="javascript:delCheck(<%=vo.getIdx()%>);">삭제</a>]
-<% 				} %>
+          방문번호 : ${curScrStartNo} <a href="javascript:delCheck(${vo.idx});" class="badge badge-secondary">삭제</a>
         </td>
-        <td class="text-right pr-0">방문IP : <%=vo.getHostIp() %></td>
+        <td class="text-right pr-0">방문IP : ${vo.hostIp}</td>
       </tr>
     </table>
 	  <table class="table table-bordered">
 	    <tr>
 	      <th width="20%">성명</th>
-	      <td width="30%"><%=vo.getName() %></td>
+	      <td width="30%">${vo.name}</td>
 	      <th width="20%">방문일자</th>
-	      <td width="30%"><%=vDate %></td>
+	      <td width="30%">${vDate}</td>
 	    </tr>
 	    <tr>
 	      <th>전자우편</th>
-	      <td colspan="3"><%=email %></td>
+	      <td colspan="3">${email}</td>
 	    </tr>
 	    <tr>
 	      <th>홈페이지</th>
-	      <td colspan="3"><%=homepage %></td>
+	      <td colspan="3">${homepage}</td>
 	    </tr>
 	    <tr>
 	      <th>글내용</th>
-	      <td colspan="3" style="height:200px"><%=content %></td>
+	      <td colspan="3" style="height:200px">${content}</td>
 	    </tr>
     </table>
     <br/>
-<%
-		curScrStartNo--;
-  }
-%>
+    <c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
+
+  </c:forEach>
   <!-- 블록 페이징 처리 시작 -->
   <div class="text-center">
+    <c:if test="${pag != 1}">[<a href="adGuestList.ad?pag=1">첫페이지</a>]</c:if>
+    <%--
   	<%if(pag != 1) { %>
         [<a href="adGuestList.ad?pag=1">첫페이지</a>]
     <%} %>
+    --%>
     
-    
-    <%if(curBlock > 0) { %>
+    <c:if test="${curBlock > 0}">[<a href="adGuestList.ad?pag=${(curBlock-1)*blockSize + 1}">이전블록</a>]</c:if>
+    <%-- <%if(curBlock > 0) { %>
         [<a href="adGuestList.ad?pag=<%=(curBlock-1)*blockSize + 1%>">이전블록</a>]
-    <%} %>
-    <%
+    <%} %> --%>
+    <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
+      <c:if test="${i <= totPage && i == pag}">
+        [<a href="adGuestList.ad?pag=${i}"><font color='red'><b>${i}</b></font></a>]
+      </c:if>
+      <c:if test="${i <= totPage && i != pag}">
+        [<a href='adGuestList.ad?pag=${i}'>${i}</a>]
+      </c:if>
+    </c:forEach>
+    <%-- <%
     	for(int i=(curBlock*blockSize)+1; i<=(curBlock*blockSize)+blockSize; i++) {
     		if(i > totPage) break;
     		if(i == pag) out.println("[<a href='adGuestList.ad?pag="+i+"'><font color='red'><b>"+i+"</b></font></a>]");
     		else out.println("[<a href='adGuestList.ad?pag="+i+"'>"+i+"</a>]");
     	}
-    %>
+    %> --%>
+    <c:if test="${curBlock < lastBlock}">
+      [<a href="adGuestList.ad?pag=${(curBlock+1)*blockSize + 1}">다음블록</a>]
+    </c:if>
+    <%-- 
     <%if(curBlock < lastBlock) { %>
         [<a href="adGuestList.ad?pag=<%=(curBlock+1)*blockSize + 1%>">다음블록</a>]
     <%} %>
-    
-    
-    <%if(pag != totPage) { %>
+     --%>
+    <c:if test="${pag != totPage}">[<a href="adGuestList.ad?pag=${totPage}">마지막페이지</a>]</c:if>
+    <%-- <%if(pag != totPage) { %>
     	[<a href="adGuestList.ad?pag=<%=totPage%>">마지막페이지</a>]
-    <%} %>
+    <%} %> --%>
   </div>
   <!-- 블록 페이징 처리 끝 -->
- 
+
 </div>
+<p><br/></p>
 </body>
 </html>
