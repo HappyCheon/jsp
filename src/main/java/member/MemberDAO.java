@@ -131,7 +131,7 @@ public class MemberDAO {
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			rs.next();
-			
+			//System.out.println("0.hobby : " + rs.getString("hobby"));
 			vo.setIdx(rs.getInt("idx"));
 			vo.setMid(rs.getString("mid"));
 			vo.setPwd(rs.getString("pwd"));
@@ -287,6 +287,38 @@ public class MemberDAO {
 			sql = "delete from member where idx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 회원정보 수정하기
+	public int setMemUpdateOk(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "update member set nickName=?,name=?,gender=?,birthday=?,"
+					+ "tel=?, address=?,email=?,homePage=?,job=?,hobby=?,"
+					+ "photo=?,content=?,userInfor=? where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getNickName());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getBirthday());
+			pstmt.setString(5, vo.getTel());
+			pstmt.setString(6, vo.getAddress());
+			pstmt.setString(7, vo.getEmail());
+			pstmt.setString(8, vo.getHomePage());
+			pstmt.setString(9, vo.getJob());
+			pstmt.setString(10, vo.getHobby());
+			pstmt.setString(11, vo.getPhoto());
+			pstmt.setString(12, vo.getContent());
+			pstmt.setString(13, vo.getUserInfor());
+			pstmt.setString(14, vo.getMid());
 			pstmt.executeUpdate();
 			res = 1;
 		} catch (SQLException e) {

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("*.mem")
 public class MemberController extends HttpServlet {
@@ -18,6 +19,10 @@ public class MemberController extends HttpServlet {
 		
 		String uri = request.getRequestURI();
 		String com = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
+		
+		// 세션이 끈겼으면 작업의 진행을 홈창으로 보낸다.
+		HttpSession session = request.getSession();
+		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
 		
 		if(com.equals("memLogin")) {
 			command = new MemLoginCommand();
@@ -52,6 +57,10 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
 		}
+		else if(level > 4) {   // 세션이 끈겼으면 작업의 진행을 홈창으로 보낸다.
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+			dispatcher.forward(request, response);
+		}
 		else if(com.equals("memMain")) {
 			command = new MemMainCommand();
 			command.execute(request, response);
@@ -74,6 +83,21 @@ public class MemberController extends HttpServlet {
 		}
 		else if(com.equals("memUserDelete")) {
 			command = new MemUserDeleteCommand();
+			command.execute(request, response);
+			viewPaged = "/message/message.jsp";
+		}
+		else if(com.equals("memUpdate")) {
+			command = new MemUpdateCommand();
+			command.execute(request, response);
+			viewPaged += "/member/memUpdate.jsp";
+		}
+		else if(com.equals("memUpdateOk")) {
+			command = new MemUpdateOkCommand();
+			command.execute(request, response);
+			viewPaged = "/message/message.jsp";
+		}
+		else if(com.equals("memUpdatePwd")) {
+			command = new MemUpdateOkCommand();
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
 		}

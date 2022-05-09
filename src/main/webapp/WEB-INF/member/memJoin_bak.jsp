@@ -2,8 +2,13 @@
 <%@ page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
+<%
+  Date now = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String strNow = sdf.format(now);
+	pageContext.setAttribute("birthday", strNow);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -257,9 +262,8 @@
     </div>
     <div class="form-group">
       <label for="birthday">생일</label>
-      <c:set var="now" value="<%=new java.util.Date() %>"/>
-      <%-- <fmt:parseDate var="birthday" value="서버변수" pattern="yyyy-MM-dd"/> --%>
-      <fmt:formatDate var="birthday" value="${now}" pattern="yyyy-MM-dd"/>
+      <%-- <c:set var="now" value="<%=new java.util.Date() %>"/>
+      <fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/> --%>
 			<input type="date" name="birthday" value="${birthday}" class="form-control"/>
     </div>
     <div class="form-group">

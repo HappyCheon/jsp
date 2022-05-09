@@ -41,6 +41,9 @@
     else if(msg == "memDeleteUpdateNo") msg = "회원에서 탈퇴 실패~~~";
     else if(msg == "userDeleteOk") msg = "회원DB에서 삭제처리 시켰습니다.";
     else if(msg == "userDeleteNo") msg = "회원DB에서 삭제처리 실패~~~";
+    else if(msg == "passwordNo") msg = "비밀번호가 틀림니다. 확인하세요~~";
+    else if(msg == "memUpdateOk") msg = "개인정보 수정 완료!!!";
+    else if(msg == "memUpdateNo") msg = "개인정보 수정 실패~~~";
 
     alert(msg);
     if(url != "") location.href = url;

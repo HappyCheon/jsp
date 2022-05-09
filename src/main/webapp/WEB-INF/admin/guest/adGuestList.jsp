@@ -99,16 +99,7 @@
   <!-- 블록 페이징 처리 시작 -->
   <div class="text-center">
     <c:if test="${pag != 1}">[<a href="adGuestList.ad?pag=1">첫페이지</a>]</c:if>
-    <%--
-  	<%if(pag != 1) { %>
-        [<a href="adGuestList.ad?pag=1">첫페이지</a>]
-    <%} %>
-    --%>
-    
     <c:if test="${curBlock > 0}">[<a href="adGuestList.ad?pag=${(curBlock-1)*blockSize + 1}">이전블록</a>]</c:if>
-    <%-- <%if(curBlock > 0) { %>
-        [<a href="adGuestList.ad?pag=<%=(curBlock-1)*blockSize + 1%>">이전블록</a>]
-    <%} %> --%>
     <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
       <c:if test="${i <= totPage && i == pag}">
         [<a href="adGuestList.ad?pag=${i}"><font color='red'><b>${i}</b></font></a>]
@@ -117,25 +108,10 @@
         [<a href='adGuestList.ad?pag=${i}'>${i}</a>]
       </c:if>
     </c:forEach>
-    <%-- <%
-    	for(int i=(curBlock*blockSize)+1; i<=(curBlock*blockSize)+blockSize; i++) {
-    		if(i > totPage) break;
-    		if(i == pag) out.println("[<a href='adGuestList.ad?pag="+i+"'><font color='red'><b>"+i+"</b></font></a>]");
-    		else out.println("[<a href='adGuestList.ad?pag="+i+"'>"+i+"</a>]");
-    	}
-    %> --%>
     <c:if test="${curBlock < lastBlock}">
       [<a href="adGuestList.ad?pag=${(curBlock+1)*blockSize + 1}">다음블록</a>]
     </c:if>
-    <%-- 
-    <%if(curBlock < lastBlock) { %>
-        [<a href="adGuestList.ad?pag=<%=(curBlock+1)*blockSize + 1%>">다음블록</a>]
-    <%} %>
-     --%>
     <c:if test="${pag != totPage}">[<a href="adGuestList.ad?pag=${totPage}">마지막페이지</a>]</c:if>
-    <%-- <%if(pag != totPage) { %>
-    	[<a href="adGuestList.ad?pag=<%=totPage%>">마지막페이지</a>]
-    <%} %> --%>
   </div>
   <!-- 블록 페이징 처리 끝 -->
 

@@ -68,6 +68,7 @@
 			      	<a class="dropdown-item" href="<%=request.getContextPath()%>/memList.mem">회원리스트</a>
 			      </c:if>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memUpdate.mem">회원정보변경</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memUpdatePwd.mem">회원비밀번호변경</a>
 			      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
 <%          if(level == 0) { %>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/adMenu.ad">관리자메뉴</a>
