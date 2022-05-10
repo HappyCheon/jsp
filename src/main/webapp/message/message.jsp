@@ -42,6 +42,8 @@
     else if(msg == "userDeleteOk") msg = "회원DB에서 삭제처리 시켰습니다.";
     else if(msg == "userDeleteNo") msg = "회원DB에서 삭제처리 실패~~~";
     else if(msg == "passwordNo") msg = "비밀번호가 틀림니다. 확인하세요~~";
+    else if(msg == "memUpdatePwdOk") msg = "비밀번호가 변경되었습니다.";
+    else if(msg == "memUpdatePwdNo") msg = "비밀번호가 변경되지 않았습니다.";
     else if(msg == "memUpdateOk") msg = "개인정보 수정 완료!!!";
     else if(msg == "memUpdateNo") msg = "개인정보 수정 실패~~~";
     else if(msg == "boInputOk") msg = "게시글이 등록되었습니다.";

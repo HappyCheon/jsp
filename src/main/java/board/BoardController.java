@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@SuppressWarnings("serial")
 @WebServlet("*.bo")
 public class BoardController extends HttpServlet {
 	@Override
@@ -34,12 +35,19 @@ public class BoardController extends HttpServlet {
 			viewPaged += "/board/boList.jsp";
 		}
 		else if(com.equals("boInput")) {
+			command = new BoInputCommand();
+			command.execute(request, response);
 			viewPaged += "/board/boInput.jsp";
 		}
 		else if(com.equals("boInputOk")) {
 			command = new BoInputOkCommand();
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
+		}
+		else if(com.equals("boContent")) {
+			command = new BoContentCommand();
+			command.execute(request, response);
+			viewPaged += "/board/boContent.jsp";
 		}
 		
 		

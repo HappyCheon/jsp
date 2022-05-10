@@ -53,7 +53,7 @@
     	
     	// 기타 추가로 체크해야 할 항목들을 모두 체크하세요.....
     	if(!regPwd.test(pwd)) {
-        alert("4~24 자리로 작성해주세요.");
+        alert("비밀번호는 4~24 자리로 작성해주세요.");
         myForm.pwd.focus();
         return false;
       }

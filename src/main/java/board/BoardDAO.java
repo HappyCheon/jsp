@@ -72,5 +72,49 @@ public class BoardDAO {
 		}
 		return res;
 	}
+
+	// 게시된 1개 글의 모든 내용을 가져온다.
+	public BoardVO getBoContent(int idx) {
+		vo = new BoardVO();
+		try {
+			sql = "select * from board where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setTitle(rs.getString("title"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setContent(rs.getString("content"));
+				vo.setwDate(rs.getString("wDate"));
+				vo.setReadNum(rs.getInt("readNum"));
+				vo.setHostIp(rs.getString("hostIp"));
+				vo.setGood(rs.getInt("good"));
+				vo.setMid(rs.getString("mid"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
+	}
+
+	// 글 조회수 1 증가하기
+	public void setReadNum(int idx) {
+		try {
+			sql = "update board set readNum = readNum + 1 where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
 	
 }

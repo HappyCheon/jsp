@@ -328,6 +328,24 @@ public class MemberDAO {
 		}
 		return res;
 	}
+
+	// 비밀번호 변경하기
+	public int setMemUpdatePwdOk(String mid, String newPwd) {
+		int res = 0;
+		try {
+			sql = "update member set pwd = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
 	
 	
 }

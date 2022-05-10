@@ -34,7 +34,7 @@
     <c:forEach var="vo" items="${vos}">
       <tr>
         <td>${vo.idx}</td>
-        <td>${vo.title}</td>
+        <td><a href="boContent.bo?idx=${vo.idx}">${vo.title}</a></td>
         <td>${vo.nickName}</td>
         <td>${vo.wDate}</td>
         <td>${vo.readNum}</td>

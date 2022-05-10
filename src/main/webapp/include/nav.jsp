@@ -52,6 +52,7 @@
         <div class="dropdown">
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/shaPass.st">SHA 암호화</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/ajax1.st">aJax연습1</a>
 			    </div>
 			  </div>
       </li>

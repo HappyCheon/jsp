@@ -8,10 +8,13 @@
   <title>memLogin.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script>
-    function fCheck() {
-    	// Front 체크....후 전송한다.
-    	myForm.submit();
-    }
+	  $(function(){
+		    $("#popbutton").click(function(){
+		        $('div.modal').modal({
+		        	remote : '/memIdSearch.html'
+		        });
+		    });
+		})
   </script>
 </head>
 <body>
@@ -37,20 +40,50 @@
 			      <div class="invalid-feedback">비밀번호는 필수 입력사항입니다.</div>
 			    </div>
 			    <div class="form-group">
-				    <button type="button" class="btn btn-secondary btn-sm" onclick="fCheck()">로그인</button> &nbsp;
+				    <button type="submit" class="btn btn-secondary btn-sm">로그인</button> &nbsp;
 				    <button type="reset" class="btn btn-secondary btn-sm">취소</button> &nbsp;
 				    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='${ctp}/';">돌아가기</button> &nbsp;
 				    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='${ctp}/memJoin.mem';">회원가입</button>
 			    </div>
 			    <div class="row" style="font-size:12px">
 			      <span class="col"><input type="checkbox" name="idCheck" checked /> 아이디 저장</span>
-			      <span class="col"><a href="#">아이디찾기</a> / <a href="#">비밀번호찾기</a></span>
+			      <span class="col"><a href="#" id="popbutton">아이디찾기</a> /
+			                        <a href="#" data-toggle="modal" data-target="#myModal2">비밀번호찾기</a></span>
+			      <!-- Button to Open the Modal -->
+			      <!-- 
+					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+					    Open modal
+					  </button>
+					   -->
 			    </div>
 			  </form>
 		  </div>
 	  </div>
 	</div>
 </div>
+<!-- 
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    	<!-- 
+      <div class="modal-header">
+        <h4 class="modal-title">아이디 찾기</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>가입시에 작성하셨던 이메일 주소를 입력하세요.</p>
+        <input type="text" name="midSearch" id="midSearch" class="form-control"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">아이디찾기</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+       -->
+    </div>
+  </div>
+</div>
+ -->
 <p><br/></p>
 <%@ include file="/include/footer.jsp" %>
 </body>

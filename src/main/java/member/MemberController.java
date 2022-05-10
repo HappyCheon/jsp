@@ -97,9 +97,16 @@ public class MemberController extends HttpServlet {
 			viewPaged = "/message/message.jsp";
 		}
 		else if(com.equals("memUpdatePwd")) {
-			command = new MemUpdateOkCommand();
+			viewPaged += "/member/memUpdatePwd.jsp";
+		}
+		else if(com.equals("memUpdatePwdOk")) {
+			command = new MemUpdatePwdOkCommand();
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
+		}
+		else if(com.equals("memIdSearch")) {
+			System.out.println("memIdSearch통과");
+			viewPaged += "/member/memIdSearch.jsp";
 		}
 		
 		
