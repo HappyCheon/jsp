@@ -69,6 +69,11 @@ public class BoardController extends HttpServlet {
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
 		}
+		else if(com.equals("boReplyUpdateOk")) {
+			command = new BoReplyUpdateOkCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPaged);

@@ -50,6 +50,19 @@ public class BoContentCommand implements BoardInterface {
 		BoardVO nextVo = dao.getPreNextSearch("next", idx);
 		request.setAttribute("preVo", preVo);
 		request.setAttribute("nextVo", nextVo);
+		
+		// 입력된 댓글 가져오기
+		ArrayList<BoardReplyVO> replyVos = dao.getBoardReply(idx);
+		request.setAttribute("replyVos", replyVos);
+		
+		// 댓글 수정처리를 위한 작업(replyIdx를 가지고, 댓글의 content를 가져와서 다시 전송시킨다.)
+		int replyIdx = request.getParameter("replyIdx")==null ? 0 : Integer.parseInt(request.getParameter("replyIdx"));
+		if(replyIdx != 0) {
+			String replyContent =  dao.getReplyContent(replyIdx);
+			request.setAttribute("replyIdx", replyIdx);
+			request.setAttribute("replyContent", replyContent);
+		}
+		
 	}
 
 }

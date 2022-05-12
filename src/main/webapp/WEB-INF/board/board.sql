@@ -48,4 +48,5 @@ create table boardReply (
   on delete restrict			/* 원본테이블에서의 주키삭제 시키지 못하게 한다.(삭제시는 에러발생하고 원본키를 삭제하지 못함.) */
 );
 
- 
+drop table boardReply;
+

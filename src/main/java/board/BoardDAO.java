@@ -266,5 +266,116 @@ public class BoardDAO {
 		}
 		return vo;
 	}
+
+	// 댓글 입력처리
+	public String setReplyInputOk(BoardReplyVO replyVo) {
+		String res = "0";
+		try {
+			sql = "insert into boardReply values (default,?,?,?,default,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyVo.getBoardIdx());
+			pstmt.setString(2, replyVo.getMid());
+			pstmt.setString(3, replyVo.getNickName());
+			pstmt.setString(4, replyVo.getHostIp());
+			pstmt.setString(5, replyVo.getContent());
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 부모글에 해당하는 댓글 내용 가져오기
+	public ArrayList<BoardReplyVO> getBoardReply(int boardIdx) {
+		ArrayList<BoardReplyVO> replyVos = new ArrayList<BoardReplyVO>();
+		try {
+			sql = "select * from boardReply where boardIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardIdx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardReplyVO replyVo = new BoardReplyVO();
+				replyVo.setIdx(rs.getInt("idx"));
+				replyVo.setBoardIdx(boardIdx);
+				replyVo.setMid(rs.getString("mid"));
+				replyVo.setNickName(rs.getString("nickName"));
+				
+				// 날짜를 24시간제로 체크하기위해서 사용자가 만든 클래스의 메소드로 처리한다.(timeDiff())
+				replyVo.setwDate(rs.getString("wDate"));
+				replyVo.setwCdate(rs.getString("wDate"));
+				TimeDiff timeDiff = new TimeDiff();	// 날짜계산하는 사용자 클래스
+				int res = timeDiff.timeDiff(replyVo.getwCdate());
+				replyVo.setwNdate(res);  	// 오늘날짜와 글쓴날짜의 시간차를 숫자형식변수에 저장시켜준다.
+				
+				replyVo.setContent(rs.getString("content"));
+				replyVo.setHostIp(rs.getString("hostIp"));
+				
+				replyVos.add(replyVo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return replyVos;
+	}
+
+	// 댓글 삭제
+	public String boReplyDeleteOk(int idx) {
+		String res = "0";
+		try {
+			sql = "delete from boardReply where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 댓글 수정을 위해, 선택한 댓글의 내용을 가져오기위한 처리
+	public String getReplyContent(int replyIdx) {
+		String content = "";
+		try {
+			sql = "select content from boardReply where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyIdx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			content = rs.getString(1);
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return content;
+	}
+
+	// 댓글 자료 수정처리
+	public String setReplyUpdateOk(int idx, String content, String hostIp) {
+		String res = "0";
+		try {
+			sql = "update boardReply set content = ?, hostIp = ? where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setString(2, hostIp);
+			pstmt.setInt(3, idx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
 	
 }
