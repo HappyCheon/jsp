@@ -8,7 +8,6 @@
   <title>ajax1.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     'use strict';
     function idCheck() {
@@ -86,8 +85,6 @@
     			$("#userName").val(str[1]);
     			$("#userAge").val(str[2]);
     			$("#userAddress").val(str[3]);
-    			
-		    	$("#userId").prop("readonly",true); // 검색된 자료의 아이디를 수정처리 못하게 한다.
     		},
     		error  : function() {
     			alert("전송실패~~~");
@@ -173,8 +170,7 @@
     function userUpdate() {
     	let midFlag = $("#userId").prop("readonly");
     	if(!midFlag) {
-    	  //alert("user수정은 검색기를 통해서 검색된 user에 대해서만 수정가능합니다.\n검색기를 이용하여 수정하고자하는 user를 검색후 수정하세요.");
-    	  $('div.modal').modal();		// alert() 대신에 modal창을 이용한 메세지를 출력한다.
+    	  alert("user수정은 검색기를 통해서 검색된 user에 대해서만 수정가능합니다.\n검색기를 이용하여 수정하고자하는 user를 검색후 수정하세요.");
     		return false;
     	}
     	
@@ -238,15 +234,6 @@
     	
     	location.href = "ajaxUserSearch.st?searchStr="+searchStr;
     }
-    
-    // Model창 띄우기
-    /* 
-    $(function(){
-	    $("#popbutton").click(function(){
-        $('div.modal').modal();
-	    });
-		})
-     */
   </script>
   <style>
     th {
@@ -338,46 +325,7 @@
     </c:forEach>
   </table> 
 </div>
-
-<!-- 블록 페이징 처리 시작 -->
-<div class="text-center">
-  <c:if test="${pag > 1}">[<a href="ajax1.st?pag=1">첫페이지</a>]</c:if>
-  <c:if test="${curBlock > 0}">[<a href="ajax1.st?pag=${(curBlock-1)*blockSize + 1}">이전블록</a>]</c:if>
-  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
-    <c:if test="${i <= totPage && i == pag}">
-      [<a href="ajax1.st?pag=${i}"><font color='red'><b>${i}</b></font></a>]
-    </c:if>
-    <c:if test="${i <= totPage && i != pag}">
-      [<a href='ajax1.st?pag=${i}'>${i}</a>]
-    </c:if>
-  </c:forEach>
-  <c:if test="${curBlock < lastBlock}">
-    [<a href="ajax1.st?pag=${(curBlock+1)*blockSize + 1}">다음블록</a>]
-  </c:if>
-  <c:if test="${pag != totPage}">[<a href="ajax1.st?pag=${totPage}">마지막페이지</a>]</c:if>
-</div>
-<!-- 블록 페이징 처리 끝 -->
-
 <p><br/></p>
-
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">User 수정에 대하여...</h4>
-        <button type="button" class="close" data-dismiss="modal"><font color="red">×</font></button>
-      </div>
-      <div class="modal-body">
-        <p>user수정은<br/>검색기를 통해서 검색된 user에 대해서만 수정가능합니다.<br/>검색기를 이용하여 수정하고자하는 user를 검색후 수정하세요.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <%@ include file="/include/footer.jsp" %>
 </body>
 </html>

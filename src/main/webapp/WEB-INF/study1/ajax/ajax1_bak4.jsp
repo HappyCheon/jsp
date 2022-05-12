@@ -338,26 +338,6 @@
     </c:forEach>
   </table> 
 </div>
-
-<!-- 블록 페이징 처리 시작 -->
-<div class="text-center">
-  <c:if test="${pag > 1}">[<a href="ajax1.st?pag=1">첫페이지</a>]</c:if>
-  <c:if test="${curBlock > 0}">[<a href="ajax1.st?pag=${(curBlock-1)*blockSize + 1}">이전블록</a>]</c:if>
-  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
-    <c:if test="${i <= totPage && i == pag}">
-      [<a href="ajax1.st?pag=${i}"><font color='red'><b>${i}</b></font></a>]
-    </c:if>
-    <c:if test="${i <= totPage && i != pag}">
-      [<a href='ajax1.st?pag=${i}'>${i}</a>]
-    </c:if>
-  </c:forEach>
-  <c:if test="${curBlock < lastBlock}">
-    [<a href="ajax1.st?pag=${(curBlock+1)*blockSize + 1}">다음블록</a>]
-  </c:if>
-  <c:if test="${pag != totPage}">[<a href="ajax1.st?pag=${totPage}">마지막페이지</a>]</c:if>
-</div>
-<!-- 블록 페이징 처리 끝 -->
-
 <p><br/></p>
 
 <!-- The Modal -->

@@ -1,4 +1,4 @@
-package study1;
+package study1.sha256;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import conn.SecurityUtil;
+import study1.StudyInterface;
 
 public class ShaPassOkCommand implements StudyInterface {
 

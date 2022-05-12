@@ -35,6 +35,10 @@ public class MemMainCommand implements MemberInterface {
 		// 사용자가 방명록에 글쓴횟수 가져오기
 		int guestCnt = dao.getGuestWrite(mid, vo.getName(), vo.getNickName());
 		request.setAttribute("guestCnt", guestCnt);
+		
+		// 사용자가 게시판에 글쓴횟수 가져오기
+		int boardCnt = dao.getBoardWrite(mid);
+		request.setAttribute("boardCnt", boardCnt);
 	}
 
 }

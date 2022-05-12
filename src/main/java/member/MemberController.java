@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@SuppressWarnings("serial")
 @WebServlet("*.mem")
 public class MemberController extends HttpServlet {
 	@Override
@@ -104,9 +105,8 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
 		}
-		else if(com.equals("memIdSearch")) {
-			System.out.println("memIdSearch통과");
-			viewPaged += "/member/memIdSearch.jsp";
+		else if(com.equals("memIdPwdSearch")) {
+			viewPaged += "/member/memIdPwdSearch.jsp";
 		}
 		
 		

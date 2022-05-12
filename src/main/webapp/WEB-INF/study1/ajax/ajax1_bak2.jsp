@@ -8,7 +8,6 @@
   <title>ajax1.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     'use strict';
     function idCheck() {
@@ -86,8 +85,6 @@
     			$("#userName").val(str[1]);
     			$("#userAge").val(str[2]);
     			$("#userAddress").val(str[3]);
-    			
-		    	$("#userId").prop("readonly",true); // 검색된 자료의 아이디를 수정처리 못하게 한다.
     		},
     		error  : function() {
     			alert("전송실패~~~");
@@ -169,52 +166,6 @@
     	});
     }
     
-    // user 수정하기
-    function userUpdate() {
-    	let midFlag = $("#userId").prop("readonly");
-    	if(!midFlag) {
-    	  //alert("user수정은 검색기를 통해서 검색된 user에 대해서만 수정가능합니다.\n검색기를 이용하여 수정하고자하는 user를 검색후 수정하세요.");
-    	  $('div.modal').modal();		// alert() 대신에 modal창을 이용한 메세지를 출력한다.
-    		return false;
-    	}
-    	
-    	let mid = $("#userId").val();
-    	let name = $("#userName").val();
-    	let age = $("#userAge").val();
-    	let address = $("#userAddress").val();
-    	
-    	if(mid=="" || name=="" || age=="" || address=="") {
-    		alert("'아이디/성명/나이/주소' 를 입력하세요.")
-    		$("#userName").focus();
-    		return false;
-    	}
-    	
-    	let query = {
-    			mid     : mid,
-    			name    : name,
-    			age     : age,
-    			address : address
-    	}
-    	
-    	$.ajax({
-    		type  : "post",
-    		url   : "${ctp}/ajaxUserUpdate",
-    		data  : query,
-    		success:function(data) {
-    			if(data == '1') {
-    				alert('수정성공!!!');
-    				location.reload();
-    			}
-    			else {
-    				alert('수정실패~~~');
-    			}
-    		},
-    		error  :function() {
-    			alert("전송오류~~~");
-    		}
-    	});
-    }
-    
     // reset버튼 클릭시 수행
     function userReset() {
     	// 화면에서 잠겨준 '아이디'를 다시 해제한다.
@@ -238,15 +189,6 @@
     	
     	location.href = "ajaxUserSearch.st?searchStr="+searchStr;
     }
-    
-    // Model창 띄우기
-    /* 
-    $(function(){
-	    $("#popbutton").click(function(){
-        $('div.modal').modal();
-	    });
-		})
-     */
   </script>
   <style>
     th {
@@ -299,9 +241,8 @@
 	        <div class="row">
 	          <div class="col text-left">
 		          <input type="button" value="유저등록" onclick="userInput()" class="btn btn-info"/>&nbsp;
-		          <input type="reset" value="다시입력" onclick="userReset()" class="btn btn-primary"/>&nbsp;
-		          <input type="button" value="User수정" onclick="userUpdate()" class="btn btn-success"/>&nbsp;
-		          <input type="button" value="User전체보기" onclick="location.href='ajax1.st';" class="btn btn-warning"/>
+		          <input type="reset" value="다시입력" onclick="userReset()" class="btn btn-info"/>&nbsp;
+		          <input type="button" value="User전체보기" onclick="location.href='ajax1.st';" class="btn btn-info"/>
 	          </div>
 	          <div class="col input-group d-flex flex-row-reverse">
 	            <div class="input-group-append"><input type="button" value="User검색" onclick="userSearchStr()" class="btn btn-primary"/></div>
@@ -338,46 +279,7 @@
     </c:forEach>
   </table> 
 </div>
-
-<!-- 블록 페이징 처리 시작 -->
-<div class="text-center">
-  <c:if test="${pag > 1}">[<a href="ajax1.st?pag=1">첫페이지</a>]</c:if>
-  <c:if test="${curBlock > 0}">[<a href="ajax1.st?pag=${(curBlock-1)*blockSize + 1}">이전블록</a>]</c:if>
-  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
-    <c:if test="${i <= totPage && i == pag}">
-      [<a href="ajax1.st?pag=${i}"><font color='red'><b>${i}</b></font></a>]
-    </c:if>
-    <c:if test="${i <= totPage && i != pag}">
-      [<a href='ajax1.st?pag=${i}'>${i}</a>]
-    </c:if>
-  </c:forEach>
-  <c:if test="${curBlock < lastBlock}">
-    [<a href="ajax1.st?pag=${(curBlock+1)*blockSize + 1}">다음블록</a>]
-  </c:if>
-  <c:if test="${pag != totPage}">[<a href="ajax1.st?pag=${totPage}">마지막페이지</a>]</c:if>
-</div>
-<!-- 블록 페이징 처리 끝 -->
-
 <p><br/></p>
-
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">User 수정에 대하여...</h4>
-        <button type="button" class="close" data-dismiss="modal"><font color="red">×</font></button>
-      </div>
-      <div class="modal-body">
-        <p>user수정은<br/>검색기를 통해서 검색된 user에 대해서만 수정가능합니다.<br/>검색기를 이용하여 수정하고자하는 user를 검색후 수정하세요.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <%@ include file="/include/footer.jsp" %>
 </body>
 </html>

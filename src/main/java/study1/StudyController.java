@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import study1.ajax1.Ajax1Command;
+import study1.ajax1.AjaxUserSearchCommand;
+import study1.sha256.ShaPassOkCommand;
 
 @WebServlet("*.st")
 public class StudyController extends HttpServlet {
@@ -19,7 +24,15 @@ public class StudyController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String com = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
 		
-		if(com.equals("el")) {
+	// 세션이 끈겼으면 작업의 진행을 홈창으로 보낸다.
+		HttpSession session = request.getSession();
+		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
+		
+		if(level > 4) {   // 세션이 끈겼으면 작업의 진행을 홈창으로 보낸다.
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+			dispatcher.forward(request, response);
+		}
+		else if(com.equals("el")) {
 			viewPage += "/study1/el_JSTL/el1.jsp";
 		}
 		else if(com.equals("el2")) {
@@ -41,6 +54,11 @@ public class StudyController extends HttpServlet {
 		}
 		else if(com.equals("ajax1")) {
 			command = new Ajax1Command();
+			command.execute(request, response);
+			viewPage += "/study1/ajax/ajax1.jsp";
+		}
+		else if(com.equals("ajaxUserSearch")) {
+			command = new AjaxUserSearchCommand();
 			command.execute(request, response);
 			viewPage += "/study1/ajax/ajax1.jsp";
 		}

@@ -18,11 +18,14 @@ public class BoardDAO {
 	
 	BoardVO vo = null;
 
-	public ArrayList<BoardVO> getBoList() {
+	// 전체 자료 검색처리
+	public ArrayList<BoardVO> getBoList(int startIndexNo, int pageSize) {
 		ArrayList<BoardVO> vos = new ArrayList<BoardVO>();
 		try {
-			sql = "select * from board order by idx desc";
+			sql = "select * from board order by idx desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -34,7 +37,13 @@ public class BoardDAO {
 				vo.setHomePage(rs.getString("homePage"));
 				vo.setContent(rs.getString("content"));
 				
+				// 날짜를 24시간제로 체크하기위해서 사용자가 만든 클래스의 메소드로 처리한다.(timeDiff())
 				vo.setwDate(rs.getString("wDate"));
+				vo.setwCdate(rs.getString("wDate"));
+				TimeDiff timeDiff = new TimeDiff();	// 날짜계산하는 사용자 클래스
+				int res = timeDiff.timeDiff(vo.getwCdate());
+				vo.setwNdate(res);  	// 오늘날짜와 글쓴날짜의 시간차를 숫자형식변수에 저장시켜준다.
+				
 				vo.setReadNum(rs.getInt("readNum"));
 				vo.setHostIp(rs.getString("hostIp"));
 				vo.setGood(rs.getInt("good"));
@@ -115,6 +124,147 @@ public class BoardDAO {
 		} finally {
 			getConn.pstmtClose();
 		}
+	}
+
+	// 좋아요 횟수 1 증가처리
+	public void setGoodCount(int idx) {
+		try {
+			sql = "update board set good = good + 1 where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
+	// 페이징처리를 위한 전체 레코드수 구하기
+	public int totRecCnt() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as cnt from board";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totRecCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+
+	// 게시판 검색기 처리
+	public ArrayList<BoardVO> getBoSearch(String search, String searchString) {
+		ArrayList<BoardVO> vos = new ArrayList<BoardVO>();
+		try {
+			sql = "select * from board where "+search+" like ? order by idx desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchString+"%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new BoardVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setTitle(rs.getString("title"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setContent(rs.getString("content"));
+				
+				// 날짜를 24시간제로 체크하기위해서 사용자가 만든 클래스의 메소드로 처리한다.(timeDiff())
+				vo.setwDate(rs.getString("wDate"));
+				vo.setwCdate(rs.getString("wDate"));
+				TimeDiff timeDiff = new TimeDiff();	// 날짜계산하는 사용자 클래스
+				int res = timeDiff.timeDiff(vo.getwCdate());
+				vo.setwNdate(res);  	// 오늘날짜와 글쓴날짜의 시간차를 숫자형식변수에 저장시켜준다.
+				
+				vo.setReadNum(rs.getInt("readNum"));
+				vo.setHostIp(rs.getString("hostIp"));
+				vo.setGood(rs.getInt("good"));
+				vo.setMid(rs.getString("mid"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	public int setBoUpdateOk(BoardVO vo) {
+		int res = 0;
+		try {
+			sql = "update board set title=?, email=?, homePage=?, content=?, hostIp=? where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getHomePage());
+			pstmt.setString(4, vo.getContent());
+			pstmt.setString(5, vo.getHostIp());
+			pstmt.setInt(6, vo.getIdx());
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 게시글 삭제처리
+	public int setBoDeleteOk(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from board where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 이전글/다음글 내용 가져오기...
+	public BoardVO getPreNextSearch(String str, int idx) {
+		vo = new BoardVO();
+		try {
+			if(str.equals("pre")) {
+				sql = "select * from board where idx < ? order by idx desc limit 1";
+			}
+			else {
+				sql = "select * from board where idx > ? limit 1";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(str.equals("pre") && rs.next()) {
+				vo.setPreIdx(rs.getInt("idx"));
+				vo.setPreTitle(rs.getString("title"));
+			}
+			else if(str.equals("next") && rs.next()) {
+				vo.setNextIdx(rs.getInt("idx"));
+				vo.setNextTitle(rs.getString("title"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
 	}
 	
 }

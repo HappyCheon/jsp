@@ -8,11 +8,10 @@
   <title>memLogin.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script>
+  	// jQuery를 이용한 modal창 열기(이곳에서는 사용하지 않음)
 	  $(function(){
 		    $("#popbutton").click(function(){
-		        $('div.modal').modal({
-		        	remote : '/memIdSearch.html'
-		        });
+		        $('div.modal').modal();
 		    });
 		})
   </script>
@@ -47,43 +46,35 @@
 			    </div>
 			    <div class="row" style="font-size:12px">
 			      <span class="col"><input type="checkbox" name="idCheck" checked /> 아이디 저장</span>
-			      <span class="col"><a href="#" id="popbutton">아이디찾기</a> /
-			                        <a href="#" data-toggle="modal" data-target="#myModal2">비밀번호찾기</a></span>
-			      <!-- Button to Open the Modal -->
-			      <!-- 
-					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-					    Open modal
-					  </button>
-					   -->
+			      <span class="col"><a href="#" data-toggle="modal" data-target="#myModal">아이디찾기</a> /
+			                        <a href="#" data-toggle="modal" data-target="#myModal">비밀번호찾기</a></span>
 			    </div>
 			  </form>
 		  </div>
 	  </div>
 	</div>
 </div>
-<!-- 
+
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-    	<!-- 
       <div class="modal-header">
-        <h4 class="modal-title">아이디 찾기</h4>
+        <h4 class="modal-title">아이디/비밀번호 찾기</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
-        <p>가입시에 작성하셨던 이메일 주소를 입력하세요.</p>
-        <input type="text" name="midSearch" id="midSearch" class="form-control"/>
+        <p>아이디나 비밀번호를 찾으시려면 기존에 가입하셨던 이메일 주소를 이용하여 새롭게 비밀번호 설정을 하실수 있습니다.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">아이디찾기</button>
+      	<!-- modal창을 통한 이동시는 url패턴을 이용해서 이동해야 한다. -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='${ctp}/memIdPwdSearch';">아이디/비밀번호찾기</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
-       -->
     </div>
   </div>
 </div>
- -->
+
 <p><br/></p>
 <%@ include file="/include/footer.jsp" %>
 </body>

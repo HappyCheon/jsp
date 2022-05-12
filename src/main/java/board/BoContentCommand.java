@@ -14,6 +14,11 @@ public class BoContentCommand implements BoardInterface {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
+		int pag = request.getParameter("pag")==null ? 0 : Integer.parseInt(request.getParameter("pag"));
+		int pageSize = request.getParameter("pageSize")==null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
+		String flag = request.getParameter("flag")==null ? "" : request.getParameter("flag");
+		String search = request.getParameter("search")==null ? "" : request.getParameter("search");
+		String searchString = request.getParameter("searchString")==null ? "" : request.getParameter("searchString");
 		
 		BoardDAO dao = new BoardDAO();
 		
@@ -22,18 +27,29 @@ public class BoContentCommand implements BoardInterface {
 		ArrayList<String> contentIdx = (ArrayList) session.getAttribute("sContentIdx");
 		if(contentIdx == null) {
 			contentIdx = new ArrayList<String>();
-			session.setAttribute("sContentIdx", contentIdx);
 		}
 		String imsiContentIdx = "board" + idx;
 		if(!contentIdx.contains(imsiContentIdx)) {
 			dao.setReadNum(idx);
 			contentIdx.add(imsiContentIdx);
 		}
+		session.setAttribute("sContentIdx", contentIdx);
 		
-		// 게시된 글의 전체 내용을 가져오기
+		// 현재 선택된 게시된 글(idx)의 전체 내용물을 가져오기
 		BoardVO vo = dao.getBoContent(idx);
 		
 		request.setAttribute("vo", vo);
+		request.setAttribute("pag", pag);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("flag", flag);
+		request.setAttribute("search", search);
+		request.setAttribute("searchString", searchString);
+		
+		// 이전글과 다음글 처리(이전글/다음글의 타이틀을 가져온다.)
+		BoardVO preVo  = dao.getPreNextSearch("pre", idx);
+		BoardVO nextVo = dao.getPreNextSearch("next", idx);
+		request.setAttribute("preVo", preVo);
+		request.setAttribute("nextVo", nextVo);
 	}
 
 }

@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.plaf.metal.MetalMenuBarUI;
-
 import conn.GetConn;
 
 public class MemberDAO {
@@ -346,6 +344,75 @@ public class MemberDAO {
 		}
 		return res;
 	}
-	
-	
+
+	// 분실한 아이디/비밀번호 를 이메일주소(+아이디)로 찾아오기 
+	public String getIdPwdSearch(String mid, String email) {
+		String result = "";
+		try {
+			if(mid.equals("")) {
+				sql = "select mid,userDel from member where email = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, email);
+			}
+			else {
+				sql = "select pwd,userDel from member where mid = ? and email = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				pstmt.setString(2, email);
+			}
+			rs = pstmt.executeQuery();
+			
+			String userDel = "";
+			while(rs.next()) {
+				if(rs.getString("userDel").equals("NO")) userDel = " ===>>> 활동중인 회원";
+				else userDel = " ===>>> 탈퇴회원(사용불가)";
+				result += rs.getString(1) + userDel + "/";
+			}
+			if(result.lastIndexOf("/") != -1) {
+				result = result.substring(0, result.lastIndexOf("/"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return result;
+	}
+
+	// 신규비밀번호 업데이트하기
+	public String setPwdUpdate(String mid, String pwd) {
+		String res = "0";
+		try {
+			sql = "update member set pwd = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 사용자가 게시판에 쓴 글의 횟수 가져오기
+	public int getBoardWrite(String mid) {
+		int res = 0;
+		try {
+			sql = "select count(*) from board where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			res = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return res;
+	}
+
 }

@@ -13,6 +13,16 @@ public class BoardVO {
 	private int good;
 	private String mid;
 	
+	// 날짜형식필드를 '문자'와 '숫자'로 저장시켜주기 위한 변수를 선언
+	private String wCdate;
+	private int wNdate;
+	
+	// '이전글','다음글'을 위한 변수설정
+	private int preIdx;
+	private int nextIdx;
+	private String preTitle;
+	private String nextTitle;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -79,10 +89,47 @@ public class BoardVO {
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
+	public String getwCdate() {
+		return wCdate;
+	}
+	public void setwCdate(String wCdate) {
+		this.wCdate = wCdate;
+	}
+	public int getwNdate() {
+		return wNdate;
+	}
+	public void setwNdate(int wNdate) {
+		this.wNdate = wNdate;
+	}
+	public int getPreIdx() {
+		return preIdx;
+	}
+	public void setPreIdx(int preIdx) {
+		this.preIdx = preIdx;
+	}
+	public int getNextIdx() {
+		return nextIdx;
+	}
+	public void setNextIdx(int nextIdx) {
+		this.nextIdx = nextIdx;
+	}
+	public String getPreTitle() {
+		return preTitle;
+	}
+	public void setPreTitle(String preTitle) {
+		this.preTitle = preTitle;
+	}
+	public String getNextTitle() {
+		return nextTitle;
+	}
+	public void setNextTitle(String nextTitle) {
+		this.nextTitle = nextTitle;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email + ", homePage="
 				+ homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum + ", hostIp=" + hostIp
-				+ ", good=" + good + ", mid=" + mid + "]";
+				+ ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate + ", preIdx=" + preIdx
+				+ ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle=" + nextTitle + "]";
 	}
 }
