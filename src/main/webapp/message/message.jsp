@@ -53,6 +53,8 @@
     else if(msg == "boDeleteOk") msg = "게시글이 삭제되었습니다.";
     else if(msg == "boDeleteNo") msg = "게시글 삭제 실패~~~\n댓글을 먼저 지워주세요.";
     else if(msg == "upLoadOk1") msg = "파일이 업로드 되었습니다.";
+    else if(msg == "fileDeleteOk") msg = "파일이 삭제 되었습니다.";
+    else if(msg == "fileDeleteNo") msg = "파일 삭제 실패~~";
 
     alert(msg);
     if(url != "") location.href = url;

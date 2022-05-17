@@ -12,6 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import study1.ajax1.Ajax1Command;
 import study1.ajax1.AjaxUserSearchCommand;
+import study1.pdsTest.DownLoad1Command;
+import study1.pdsTest.FileDeleteCommand;
+import study1.pdsTest.UpLoadOk1Command;
+import study1.pdsTest.UpLoadOk2Command;
 import study1.sha256.ShaPassOkCommand;
 
 @WebServlet("*.st")
@@ -74,6 +78,19 @@ public class StudyController extends HttpServlet {
 			command = new DownLoad1Command();
 			command.execute(request, response);
 			viewPage += "/study1/pdsTest/downLoad1.jsp";
+		}
+		else if(com.equals("fileDelete")) {
+			command = new FileDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("upLoad2")) {
+			viewPage += "/study1/pdsTest/upLoad2.jsp";
+		}
+		else if(com.equals("upLoadOk2")) {
+			command = new UpLoadOk2Command();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

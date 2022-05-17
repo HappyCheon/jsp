@@ -54,6 +54,7 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/shaPass.st">SHA 암호화</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/ajax1.st">aJax연습1</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad1.st">싱글파일업로드</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad2.st">멀티파일업로드</a>
 			    </div>
 			  </div>
       </li>

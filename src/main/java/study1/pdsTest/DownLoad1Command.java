@@ -1,4 +1,4 @@
-package study1;
+package study1.pdsTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import study1.StudyInterface;
 
 public class DownLoad1Command implements StudyInterface {
 
@@ -20,6 +22,8 @@ public class DownLoad1Command implements StudyInterface {
 		for(String file : files) {
 			System.out.println("files : " + file);
 		}
+		
+		request.setAttribute("files", files);
 	}
 
 }
