@@ -119,6 +119,12 @@
 	    	  submitFlag = 1;
 	      }
       }
+      else {	// 전화번호를 입력하지 않을시 DB에는 '010- - '의 형태로 저장하고자 한다.
+    	  tel2 = " ";
+    	  tel3 = " ";
+    	  tel = tel1 + '-' + tel2 + '-' + tel3;
+    	  submitFlag = 1;
+      }
     	
   		// 전송전에 '주소'를 하나로 묶어서 전송처리 준비한다.
   		let postcode = myForm.postcode.value + " ";

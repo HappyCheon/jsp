@@ -19,13 +19,23 @@ public class BoardDAO {
 	BoardVO vo = null;
 
 	// 전체 자료 검색처리
-	public ArrayList<BoardVO> getBoList(int startIndexNo, int pageSize) {
+	public ArrayList<BoardVO> getBoList(int startIndexNo, int pageSize, int recent) {
 		ArrayList<BoardVO> vos = new ArrayList<BoardVO>();
 		try {
-			sql = "select * from board order by idx desc limit ?, ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startIndexNo);
-			pstmt.setInt(2, pageSize);
+			// sql = "select * from board order by idx desc limit ?, ?";
+			if(recent == 0) {
+				sql = "select *,(select count(*) from boardReply where boardIdx=board.idx) as replyCount from board order by idx desc limit ?,?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
+			}
+			else {
+				sql = "select *,(select count(*) from boardReply where boardIdx=board.idx) as replyCount from board where date_sub(now(), interval ? day) < wDate order by idx desc limit ?,?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, recent);
+				pstmt.setInt(2, startIndexNo);
+				pstmt.setInt(3, pageSize);
+			}
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -48,6 +58,7 @@ public class BoardDAO {
 				vo.setHostIp(rs.getString("hostIp"));
 				vo.setGood(rs.getInt("good"));
 				vo.setMid(rs.getString("mid"));
+				vo.setReplyCount(rs.getInt("replyCount"));
 				
 				vos.add(vo);
 			}
@@ -141,11 +152,18 @@ public class BoardDAO {
 	}
 
 	// 페이징처리를 위한 전체 레코드수 구하기
-	public int totRecCnt() {
+	public int totRecCnt(int recent) {
 		int totRecCnt = 0;
 		try {
-			sql = "select count(*) as cnt from board";
-			pstmt = conn.prepareStatement(sql);
+			if(recent == 0) {
+				sql = "select count(*) as cnt from board";
+				pstmt = conn.prepareStatement(sql);
+			}
+			else {
+				sql = "select count(*) as cnt from board where date_sub(now(), interval ? day) < wDate";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, recent);
+			}
 			rs = pstmt.executeQuery();
 			
 			rs.next();

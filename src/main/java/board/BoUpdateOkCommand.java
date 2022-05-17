@@ -11,8 +11,8 @@ public class BoUpdateOkCommand implements BoardInterface {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
-		int pag = request.getParameter("pag")==null ? 0 : Integer.parseInt(request.getParameter("pag"));
-		int pageSize = request.getParameter("pageSize")==null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
+		int pag = request.getParameter("pag")==null ? 1 : Integer.parseInt(request.getParameter("pag"));
+		int pageSize = request.getParameter("pageSize")==null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
 		
 		String title = request.getParameter("title")==null ? "" : request.getParameter("title");
 		String email = request.getParameter("email")==null ? "" : request.getParameter("email");

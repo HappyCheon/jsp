@@ -6,32 +6,28 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>boList.jsp</title>
+  <title>adBoList.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script>
     'use strict';
     function pageCheck() {
     	let pageSize = $("#pageSize").val();
-    	location.href = "boList.bo?pag=${pag}&pageSize="+pageSize;
+    	location.href = "adBoList.ad?recent=${recent}&pag=${pag}&pageSize="+pageSize;
     }
     
-    // 검색기 처리
-    function searchCheck() {
-    	let searchString = $("#searchString").val();
-    	
-    	if(searchString.trim() == "") {
-    		alert("검색어를 입력하세요!");
-    		searchForm.searchString.focus();
+    function adRecent() {
+    	let recent = $("#recent").val();
+    	if(recent == "0") {
+    		alert("최신 검색일자를 선택하세요");
     	}
     	else {
-    		searchForm.submit();
+    		location.href = "adBoList.ad?pag=${pag}&pageSize=${pageSize}&recent="+recent;
     	}
     }
   </script>
 </head>
 <body>
-<%@ include file="/include/header_home.jsp" %>
-<%@ include file="/include/nav.jsp" %>
+
 <p><br/></p>
 <div class="container">
   <h2 class="text-center">게 시 판 리 스 트</h2>
@@ -39,7 +35,12 @@
   <table class="table table-borderless">
     <tr>
       <td class="text-left p-0">
-        <a href="boInput.bo" class="btn btn-secondary btn-sm">글쓰기</a>
+        <select name="recent" id="recent" onchange="adRecent()">
+          <option value="0">최신자료순</option>
+          <c:forEach var="i" begin="1" end="30">
+            <option value="${i}" ${recent==i ? 'selected' : ''}>${i}일전</option>
+          </c:forEach>
+        </select>
       </td>
       <td class="text-right p-0">
         <select name="pageSize" id="pageSize" onchange="pageCheck()">
@@ -85,47 +86,28 @@
 <div class="text-center">
   <ul class="pagination justify-content-center">
 	  <c:if test="${pag > 1}">
-	    <li class="page-item"><a href="boList.bo?pag=1&pageSize=${pageSize}" class="page-link text-secondary">◁◁</a></li>
+	    <li class="page-item"><a href="adBoList.ad?pag=1&pageSize=${pageSize}&recent=${recent}" class="page-link text-secondary">◁◁</a></li>
 	  </c:if>
 	  <c:if test="${curBlock > 0}">
-	    <li class="page-item"><a href="boList.bo?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}" class="page-link text-secondary">◀</a></li>
+	    <li class="page-item"><a href="adBoList.ad?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}&recent=${recent}" class="page-link text-secondary">◀</a></li>
 	  </c:if>
 	  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
 	    <c:if test="${i <= totPage && i == pag}">
-	      <li class="page-item active"><a href="boList.bo?pag=${i}&pageSize=${pageSize}" class="page-link text-light bg-secondary border-secondary">${i}</a></li>
+	      <li class="page-item active"><a href="adBoList.ad?pag=${i}&pageSize=${pageSize}&recent=${recent}" class="page-link text-light bg-secondary border-secondary">${i}</a></li>
 	    </c:if>
 	    <c:if test="${i <= totPage && i != pag}">
-	      <li class="page-item"><a href='boList.bo?pag=${i}&pageSize=${pageSize}' class="page-link text-secondary">${i}</a></li>
+	      <li class="page-item"><a href='adBoList.ad?pag=${i}&pageSize=${pageSize}&recent=${recent}' class="page-link text-secondary">${i}</a></li>
 	    </c:if>
 	  </c:forEach>
 	  <c:if test="${curBlock < lastBlock}">
-	    <li class="page-item"><a href="boList.bo?pag=${(curBlock+1)*blockSize + 1}&pageSize=${pageSize}" class="page-link text-secondary">▶</a></li>
+	    <li class="page-item"><a href="adBoList.ad?pag=${(curBlock+1)*blockSize + 1}&pageSize=${pageSize}&recent=${recent}" class="page-link text-secondary">▶</a></li>
 	  </c:if>
 	  <c:if test="${pag != totPage}">
-	    <li class="page-item"><a href="boList.bo?pag=${totPage}&pageSize=${pageSize}" class="page-link text-secondary">▷▷</a></li>
+	    <li class="page-item"><a href="adBoList.ad?pag=${totPage}&pageSize=${pageSize}&recent=${recent}" class="page-link text-secondary">▷▷</a></li>
 	  </c:if>
   </ul>
 </div>
 <!-- 블록 페이징 처리 끝 -->
-<br/>
-<!-- 검색기 처리 시작 -->
-<div class="container text-center">
-	<form name="searchForm" method="post" action="boSearch.bo">
-	  <b>검색 : </b>
-	  <select name="search" onchange=searchChange()">
-	    <option value="title">글제목</option>
-	    <option value="nickName">글쓴이</option>
-	    <option value="content">글내용</option>
-	  </select>
-	  <input type="text" name="searchString" id="searchString"/>
-	  <input type="button" value="검색" onclick="searchCheck()"/>
-	  <input type="hidden" name="pag" value="${pag}"/>
-	  <input type="hidden" name="pageSize" value="${pageSize}"/>
-	</form>
-</div>
-<!-- 검색기 처리 끝 -->
 
-<p><br/></p>
-<%@ include file="/include/footer.jsp" %>
 </body>
 </html>

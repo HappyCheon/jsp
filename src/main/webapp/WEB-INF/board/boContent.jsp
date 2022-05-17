@@ -15,8 +15,9 @@
     		type  : "post",
     		url   : "${ctp}/boGoodCount",
     		data  : {idx : ${vo.idx}},
-    		success:function() {
-    			location.reload();
+    		success:function(data) {
+    			if(data == "0") alert("이미 좋아요 버튼을 클릭하셨습니다.");
+    			else location.reload();
     		},
     		error : function() {
     			alert("전송오류~~");
@@ -127,8 +128,10 @@
   </style>
 </head>
 <body>
-<%@ include file="/include/header_home.jsp" %>
-<%@ include file="/include/nav.jsp" %>
+<c:if test="${sLevel != 0}">
+	<%@ include file="/include/header_home.jsp" %>
+	<%@ include file="/include/nav.jsp" %>
+</c:if>
 <p><br/></p>
 <div class="container">
   <h2 class="text-center">글 내 용 보 기</h2>
@@ -166,7 +169,7 @@
     	  <c:if test="${flag != 's'}">
     			<input type="button" value="돌아가기" onclick="location.href='boList.bo?pag=${pag}&pageSize=${pageSize}';" class="btn btn-secondary"/>
     		</c:if>
-    		<c:if test="${sMid == vo.mid}">
+    		<c:if test="${sMid == vo.mid || sLevel == 0}">
 	    		<input type="button" value="수정하기" onclick="location.href='boUpdate.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}';" class="btn btn-secondary"/>
 	    		<input type="button" value="삭제하기" onclick="boardDelCheck()" class="btn btn-secondary"/>
     		</c:if>

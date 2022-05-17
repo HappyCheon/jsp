@@ -15,7 +15,7 @@ public class BoSearchCommand implements BoardInterface {
 		String searchString = request.getParameter("searchString")==null ? "" : request.getParameter("searchString");
 		
 		int pag = request.getParameter("pag")==null ? 1 : Integer.parseInt(request.getParameter("pag"));
-		int pageSize = request.getParameter("pageSize")==null ? 1 : Integer.parseInt(request.getParameter("pageSize"));
+		int pageSize = request.getParameter("pageSize")==null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
 		
 		BoardDAO dao = new BoardDAO();
 		

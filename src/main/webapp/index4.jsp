@@ -12,7 +12,7 @@
   pageContext.setAttribute("memberVos", memberVos);
   
   BoardDAO boardDao = new BoardDAO();
-  ArrayList<BoardVO> boardVos = boardDao.getBoList(0, 10);
+  ArrayList<BoardVO> boardVos = boardDao.getBoList(0, 10, 0);
   pageContext.setAttribute("boardVos", boardVos);
 %>
 <!DOCTYPE html>

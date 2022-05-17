@@ -24,7 +24,12 @@
  -->
  
 <!--  <div style="background-image: url(images/61.jpg);width:100%;height:200px"> -->
-<div style="background-image: url(images/61.jpg);width:100%;height:180px;background-size:cover;">
+<%
+  int imgSrc = (int)(Math.random()*3) + 61;
+  //System.out.println("imgSrc : " + imgSrc);
+  pageContext.setAttribute("imgSrc", imgSrc);
+%>
+<div style="background-image: url(<%=request.getContextPath()%>/images/${imgSrc}.jpg);width:100%;height:180px;background-size:cover;">
   <font color="#fff">
   <h2>길동이 JSP 프로젝트</h2>
   <p>(본 프로젝트는 반응형으로 제작되었습니다.)</p>
