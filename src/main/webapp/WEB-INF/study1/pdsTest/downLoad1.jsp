@@ -75,8 +75,10 @@
   </table>
   <hr/>
   <div class="row">
-    <div class="col"><a href="upLoad1.st" class="btn btn-info form-control">싱글파일 업로드 폼으로 돌아가기</a></div>
-    <div class="col"><a href="upLoad2.st" class="btn btn-info form-control">멀티파일 업로드 폼으로 돌아가기</a></div>
+    <div class="col"><a href="upLoad1.st" class="btn btn-info form-control">싱글파일 폼으로</a></div>
+    <div class="col"><a href="upLoad2.st" class="btn btn-info form-control">멀티파일2 폼으로</a></div>
+    <div class="col"><a href="upLoad3.st" class="btn btn-info form-control">멀티파일3 폼으로</a></div>
+    <div class="col"><a href="upLoad4.st" class="btn btn-info form-control">멀티파일4 폼으로</a></div>
   </div>
 </div>
 <p><br/></p>

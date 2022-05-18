@@ -41,7 +41,17 @@ public class UpLoadOk2Command implements StudyInterface {
 		else {
 			request.setAttribute("msg", "upLoadOk1");
 		}
-		request.setAttribute("url", request.getContextPath() + "/upLoad2.st");
+		int upLoadFlag = multipartRequest.getParameter("upLoadFlag")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("upLoadFlag"));
+		
+		if(upLoadFlag == 0) {
+			request.setAttribute("url", request.getContextPath() + "/upLoad2.st");
+		}
+		else if(upLoadFlag == 3) {
+			request.setAttribute("url", request.getContextPath() + "/upLoad3.st");
+		}
+		else if(upLoadFlag == 4) {
+			request.setAttribute("url", request.getContextPath() + "/upLoad4.st");
+		}
 	}
 
 }

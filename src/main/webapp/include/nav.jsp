@@ -53,8 +53,11 @@
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/shaPass.st">SHA 암호화</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/ajax1.st">aJax연습1</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad1.st">싱글파일업로드</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad2.st">멀티파일업로드</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad1.st">싱글파일업로드1</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad2.st">멀티파일업로드2</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad3.st">멀티파일업로드3</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad4.st">멀티파일업로드4</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/dynamicForm.st">동적폼연습</a>
 			    </div>
 			  </div>
       </li>
