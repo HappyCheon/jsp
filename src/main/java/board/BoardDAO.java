@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conn.GetConn;
+import conn.TimeDiff;
 
 public class BoardDAO {
 	GetConn getConn = GetConn.getInstance();

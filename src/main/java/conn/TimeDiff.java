@@ -1,4 +1,4 @@
-package board;
+package conn;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

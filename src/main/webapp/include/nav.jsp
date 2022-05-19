@@ -30,7 +30,7 @@
 <%    } 
       if(level != 99 && level != 1) { %>
       <li class="nav-item font-weight-bold">
-        <a class="nav-link" href="#">PDS</a>
+        <a class="nav-link" href="<%=request.getContextPath()%>/pdsList.pds">PDS</a>
       </li>
       <li class="nav-item font-weight-bold">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Study1</a>

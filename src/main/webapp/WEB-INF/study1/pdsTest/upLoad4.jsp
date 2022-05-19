@@ -51,7 +51,7 @@
   <form name="myForm" method="post" action="${ctp}/upLoadOk2.st" enctype="multipart/form-data">
 	  <h2>파일 업로드 테스트 4(멀티파일처리-다중파일선택)</h2>
 	  <p>cos라이브러리를 이용한 파일 업로드</p>
-	  <p>여러개의 파일을 선택할 경우는 'Ctrl+클릭/Shift+클릭' 하세요</p> 
+	  <p><font color='blue'>여러개의 파일을 선택할 경우는 'Ctrl+클릭/Shift+클릭' 하세요</font></p> 
 	  <hr/>
 	  <div class="form-group">
 	    <input type="file" name="fName" id="fName" class="form-control-file border" autofocus multiple />
