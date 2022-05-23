@@ -206,8 +206,8 @@
 	      <td>
 	        ${replyVo.nickName}
 	        <c:if test="${sMid == replyVo.mid || sLevel == 0}">
-	          (<a href="boContent.bo?replyIdx=${replyVo.idx}&idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">√</a>,
-	          <a href="javascript:replyDelCheck(${replyVo.idx})">x</a>)
+	          (<a href="boContent.bo?replyIdx=${replyVo.idx}&idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" title="수정하기">√</a>,
+	          <a href="javascript:replyDelCheck(${replyVo.idx})" title="삭제하기">x</a>)
 	        </c:if>
 	      </td>
 	      <td class="text-left">

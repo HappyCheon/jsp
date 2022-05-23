@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import study1.ajax1.Ajax1Command;
 import study1.ajax1.AjaxUserSearchCommand;
+import study1.calendar.Calendar1Command;
+import study1.calendar.Calendar2Command;
 import study1.pdsTest.DownLoad1Command;
 import study1.pdsTest.FileDeleteCommand;
 import study1.pdsTest.UpLoadOk1Command;
@@ -100,6 +102,16 @@ public class StudyController extends HttpServlet {
 		}
 		else if(com.equals("dynamicForm")) {
 			viewPage += "/study1/dynamicForm/dynamicForm.jsp";
+		}
+		else if(com.equals("calendar1")) {
+			command = new Calendar1Command();
+			command.execute(request, response);
+			viewPage += "/study1/calendar/calendar1.jsp";
+		}
+		else if(com.equals("calendar2")) {
+			command = new Calendar2Command();
+			command.execute(request, response);
+			viewPage += "/study1/calendar/calendar2.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

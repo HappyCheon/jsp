@@ -58,6 +58,8 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad3.st">멀티파일업로드3</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/upLoad4.st">멀티파일업로드4</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/dynamicForm.st">동적폼연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/calendar1.st">달력1</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/calendar2.st">달력2</a>
 			    </div>
 			  </div>
       </li>
@@ -68,7 +70,7 @@
         <div class="dropdown">
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memMain.mem">회원방</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/">일정관리</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/schedule.sc">일정관리</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/">1:1문의</a>
 			      <c:if test="${sLevel != 1}">
 			      	<a class="dropdown-item" href="<%=request.getContextPath()%>/memList.mem">회원리스트</a>

@@ -1,4 +1,4 @@
-package pds;
+package schedule;
 
 import java.io.IOException;
 
@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet("*.pds")
-public class PdsController extends HttpServlet {
+@WebServlet("*.sc")
+public class ScheduleController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PdsInterface command = null;
+		ScheduleInterface command = null;
 		String viewPaged = "/WEB-INF";
 		
 		String uri = request.getRequestURI();
@@ -29,44 +29,17 @@ public class PdsController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
 			dispatcher.forward(request, response);
 		}
-		else if(com.equals("pdsList")) {
-			command = new PdsListCommand();
+		else if(com.equals("schedule")) {
+			command = new ScheduleCommand();
 			command.execute(request, response);
-			viewPaged += "/pds/pdsList.jsp";
+			viewPaged += "/schedule/schedule.jsp";
 		}
-		else if(com.equals("pdsInput")) {
-			viewPaged += "/pds/pdsInput.jsp";
-		}
-		else if(com.equals("pdsInputOk")) {
-			command = new PdsInputOkCommand();
+		else if(com.equals("scMenu")) {
+			command = new ScMenuCommand();
 			command.execute(request, response);
-			viewPaged = "/message/message.jsp";
+			viewPaged += "/schedule/scMenu.jsp";
 		}
-		else if(com.equals("pdsContent")) {
-			command = new PdsContentCommand();
-			command.execute(request, response);
-			viewPaged += "/pds/pdsContent.jsp";
-		}
-		else if(com.equals("pdsDownNum")) {
-			command = new PdsDownNumCommand();
-			command.execute(request, response);
-			return;
-		}
-		else if(com.equals("pdsDelete")) {
-			command = new PdsDeleteCommand();
-			command.execute(request, response);
-			return;
-		}
-		else if(com.equals("pdsTotalDown")) {
-			command = new PdsTotalDownCommand();
-			command.execute(request, response);
-			return;
-		}
-		else if(com.equals("pdsPwdCheck")) {
-			command = new PdsPwdCheckCommand();
-			command.execute(request, response);
-			viewPaged = "/message/message.jsp";
-		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPaged);
 		dispatcher.forward(request, response);

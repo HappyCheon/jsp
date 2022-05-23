@@ -58,6 +58,8 @@
     else if(msg == "pdsInputOk") msg = "자료파일이 업로드 되었습니다.";
     else if(msg == "pdsInputNo") msg = "자료파일 업로드 실패~~";
     else if(msg == "totalDownOk") msg = "압축파일이 정상적으로 다운되었습니다.";
+    else if(msg == "pdsDeleteOk") msg = "자료파일이 삭제되었습니다.";
+    else if(msg == "pdsDeleteNo") msg = "자료파일 삭제실패~~";
 
     alert(msg);
     if(url != "") location.href = url;

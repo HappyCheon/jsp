@@ -79,14 +79,6 @@
     		}
     	});
     }
-    
-    // 모달창을 이용하여 비밀번호 값 전송하기
-    function modalPwdView(idx, fSName) {
-    	$("#myPwdModal").on("show.bs.modal", function(e) {
-    		$(".modal-body #idx").val(idx);
-    		$(".modal-body #fSName").val(fSName);
-    	});
-    }
   </script>
 </head>
 <body>
@@ -112,7 +104,7 @@
   	  <td class="text-right"><a href="${ctp}/pdsInput.pds" class="btn btn-outline-success">자료올리기</a></td>
   	</tr>
   </table>
-  <table class="table table-hover table-striped text-center">
+  <table class="table table-hover table-borderless text-center">
     <tr class="table-dark text-dark">
       <th>번호</th>
       <th>자료제목</th>
@@ -140,7 +132,6 @@
           <c:if test="${vo.wNdate > 24}">${fn:substring(vo.fDate,0,10)}</c:if>
         </td>
         <td>
-          <!-- modal기능을 이용한 개별정보 상세보기 -->
           <a href="#" data-toggle="modal" data-target="#myModal" onclick="modal_view('${vo.title}','${vo.part}','${vo.nickName}','${vo.mid}','${vo.fName}','${vo.fDate}','${vo.fSize}','${vo.fSName}');">${vo.part}</a>
         </td>
         <td>
@@ -161,9 +152,8 @@
         <td>${vo.downNum}</td>
         <td>
           <c:if test="${sMid == vo.mid || sLevel == 0}">
-          	<a href="${ctp}/pdsTotalDown.pds?idx=${vo.idx}" class="btn btn-primary btn-sm">전체다운</a>
+          	<a href="${ctp}/pdsTotalDown.pds?idx=${vo.idx}" class="btn btn-danger btn-sm">전체다운</a>
           	<a href="javascript:pdsDelCheck('${vo.idx}','${vo.fSName}')" class="btn btn-danger btn-sm">삭제</a>
-          	<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myPwdModal" onclick="modalPwdView('${vo.idx}','${vo.fSName}');">삭제2</a>
           </c:if>
         </td>
       </tr>
@@ -178,7 +168,7 @@
 	  <c:if test="${pag > 1}">
 	    <li class="page-item"><a href="pdsList.pds?pag=1&pageSize=${pageSize}&part=${part}" class="page-link text-secondary">◁◁</a></li>
 	  </c:if>
-	  <c:if test="${curBlock > 0}">d
+	  <c:if test="${curBlock > 0}">
 	    <li class="page-item"><a href="pdsList.pds?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}&part=${part}" class="page-link text-secondary">◀</a></li>
 	  </c:if>
 	  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
@@ -196,63 +186,39 @@
 	    <li class="page-item"><a href="pdsList.pds?pag=${totPage}&pageSize=${pageSize}&part=${part}" class="page-link text-secondary">▷▷</a></li>
 	  </c:if>
   </ul>
+  
+  The Modal(part를 클릭하면 content를 제외한 내용을 모달로 출력처리한다.)
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h4 class="modal-title"><span id="title"></span>(분류:<span id="part"></span>)</h4>
+          <button type="button" class="close" data-dismiss="modal"><font color='red'>×</font></button>
+        </div>
+        
+        <div class="modal-body">
+          - 올린이 : <span id="nickName"></span>
+          <hr/>
+          - 아이디 : <span id="mid"></span><br/>
+          - 파일명 : <span id="fName"></span><br/>
+          - 올린날짜 : <span id="fDate"></span><br/>
+          - 파일크기 : <span id="fSize"></span><br/>
+          <hr/>
+          - 저장파일명 : <span id="fSName"></span><br/>
+          <img id="imgSrc" width="380px"/><br/> 
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+   
 </div>
 <!-- 블록 페이징 처리 끝 -->
-
-<!-- The Modal(part를 클릭하면 content를 제외한 내용을 모달로 출력처리한다.) -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    
-      <div class="modal-header">
-        <h4 class="modal-title"><span id="title"></span>(분류:<span id="part"></span>)</h4>
-        <button type="button" class="close" data-dismiss="modal"><font color='red'>×</font></button>
-      </div>
-      
-      <div class="modal-body">
-        - 올린이 : <span id="nickName"></span>
-        <hr/>
-        - 아이디 : <span id="mid"></span><br/>
-        - 파일명 : <span id="fName"></span><br/>
-        - 올린날짜 : <span id="fDate"></span><br/>
-        - 파일크기 : <span id="fSize"></span><br/>
-        <hr/>
-        - 저장파일명 : <span id="fSName"></span><br/>
-        <img id="imgSrc" width="380px"/><br/> 
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-<!-- The Modal(폼태그로 비밀번호 처리) -->
-<div class="modal fade" id="myPwdModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">비밀번호 조회</h4>
-        <button type="button" class="close" data-dismiss="modal"><font color='red'>×</font></button>
-      </div>
-      <div class="modal-body">
-        <form name="pwdModalForm" method="post" action="${ctp}/pdsPwdCheck.pds" class="was-validated">
-          <label for="pwd">비밀번호</label>
-        	<input type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력하세요" class="form-control mb-2" required />
-        	<input type="submit" value="비밀번호 확인" class="btn btn-success form-control"/>
-        	<input type="hidden" name="idx" id="idx"/>
-        	<input type="hidden" name="fSName" id="fSName"/>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <p><br/></p>
 <%@ include file="/include/footer.jsp" %>
 </body>
