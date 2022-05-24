@@ -90,7 +90,7 @@
         <c:forEach begin="${nextStartWeek}" end="7" varStatus="nextDay">
       		<td style="color:#ccc;font-size:0.6em">${nextYear}-${nextMonth+1}-${nextDay.count}</td>
 	      	<c:set var="cnt" value="${cnt + 1}"/>
-      	</c:forEach>     
+      	</c:forEach>
       </tr>
     </table>
   </div>

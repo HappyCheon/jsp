@@ -18,7 +18,7 @@ public class ScMenuCommand implements ScheduleInterface {
 		String ymd = request.getParameter("ymd")==null ? "" : request.getParameter("ymd");
 		String[] ymds = ymd.split("-");
 		if(ymds[1].length() == 1) ymds[1] = "0" + ymds[1];
-		if(ymds[2].length() == 1) ymds[1] = "0" + ymds[2];
+		if(ymds[2].length() == 1) ymds[2] = "0" + ymds[2];
 		
 		ymd = ymds[0] + "-" +  ymds[1] + "-" +  ymds[2];  // '2022-06-09'
 		

@@ -105,7 +105,6 @@ public class ScheduleCommand implements ScheduleInterface {
 		ScheduleDAO dao = new ScheduleDAO();
 		
 		ArrayList<ScheduleVO> vos = dao.getScheduleList(mid, ym);
-		//System.out.println("vos(List) : " + vos);
 		
 		request.setAttribute("vos", vos);
 	}

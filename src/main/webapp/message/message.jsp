@@ -60,6 +60,8 @@
     else if(msg == "totalDownOk") msg = "압축파일이 정상적으로 다운되었습니다.";
     else if(msg == "pdsDeleteOk") msg = "자료파일이 삭제되었습니다.";
     else if(msg == "pdsDeleteNo") msg = "자료파일 삭제실패~~";
+    else if(msg == "scheduleUpdateOk") msg = "일정을 수정하였습니다.";
+    else if(msg == "scheduleUpdateNo") msg = "일정 수정실패~~~";
 
     alert(msg);
     if(url != "") location.href = url;

@@ -39,6 +39,16 @@ public class ScheduleController extends HttpServlet {
 			command.execute(request, response);
 			viewPaged += "/schedule/scMenu.jsp";
 		}
+		else if(com.equals("scContent")) {
+			command = new ScContentCommand();
+			command.execute(request, response);
+			viewPaged += "/schedule/scContent.jsp";
+		}
+		else if(com.equals("scUpdateOk")) {
+			command = new ScUpdateOkCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPaged);
