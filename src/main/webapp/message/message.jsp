@@ -62,6 +62,8 @@
     else if(msg == "pdsDeleteNo") msg = "자료파일 삭제실패~~";
     else if(msg == "scheduleUpdateOk") msg = "일정을 수정하였습니다.";
     else if(msg == "scheduleUpdateNo") msg = "일정 수정실패~~~";
+    else if(msg == "wmInputOk") msg = "메세지를 전송했습니다.";
+    else if(msg == "wmInputNo") msg = "메세지 전송 실패~~~";
 
     alert(msg);
     if(url != "") location.href = url;
