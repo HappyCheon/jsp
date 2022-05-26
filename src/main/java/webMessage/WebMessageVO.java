@@ -11,6 +11,9 @@ public class WebMessageVO {
 	private String receiveSw;
 	private String receiveDate;
 	
+	private String cReceiveDate;	// 24시간에 대한 체크를 위해 문자형식의 날짜와 숫자형식의 날짜필드를 선언했다.
+	private int nReceiveDate;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -65,10 +68,22 @@ public class WebMessageVO {
 	public void setReceiveDate(String receiveDate) {
 		this.receiveDate = receiveDate;
 	}
+	public String getcReceiveDate() {
+		return cReceiveDate;
+	}
+	public void setcReceiveDate(String cReceiveDate) {
+		this.cReceiveDate = cReceiveDate;
+	}
+	public int getnReceiveDate() {
+		return nReceiveDate;
+	}
+	public void setnReceiveDate(int nReceiveDate) {
+		this.nReceiveDate = nReceiveDate;
+	}
 	@Override
 	public String toString() {
 		return "WebMessageVO [idx=" + idx + ", title=" + title + ", content=" + content + ", sendId=" + sendId + ", sendSw="
 				+ sendSw + ", sendDate=" + sendDate + ", receiveId=" + receiveId + ", receiveSw=" + receiveSw + ", receiveDate="
-				+ receiveDate + "]";
+				+ receiveDate + ", cReceiveDate=" + cReceiveDate + ", nReceiveDate=" + nReceiveDate + "]";
 	}
 }

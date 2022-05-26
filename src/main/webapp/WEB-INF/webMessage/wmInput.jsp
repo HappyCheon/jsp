@@ -43,7 +43,10 @@
       </tr>
       <tr>
         <th>받는 사람</th>
-        <td><input type="text" name="receiveId" placeholder="받는사람 아이디" class="form-control"/></td>
+        <td>
+          <c:if test="${empty param.receiveId}"><input type="text" name="receiveId" value="${param.receiveId}" placeholder="받는사람 아이디" class="form-control"/></c:if>
+          <c:if test="${!empty param.receiveId}"><input type="text" name="receiveId" value="${param.receiveId}" readonly placeholder="받는사람 아이디" class="form-control"/></c:if>
+        </td>
       </tr>
       <tr>
         <th>메세지 제목</th>

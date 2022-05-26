@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conn.GetConn;
+import conn.TimeDiff;
 
 public class WebMessageDAO {
 	GetConn getConn = GetConn.getInstance();
@@ -35,13 +36,16 @@ public class WebMessageDAO {
 				sql = "select * from webMessage where sendId=? and receiveSw='n' order by idx desc";
 			}
 			else if(mSw == 5) {	// 휴지통
-				sql = "";
+				sql = "select * from webMessage where (receiveId=? and receiveSw='g') or (sendId=? and sendSw='g') order by idx desc";
 			}
 			else {	// mSw가 0일때는 새메세지 작성 처리이기에 그냥 리턴한다.
 				return vos;
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
+			if(mSw == 5) {
+				pstmt.setString(2, mid);
+			}
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -54,7 +58,11 @@ public class WebMessageDAO {
 				vo.setSendDate(rs.getString("sendDate"));
 				vo.setReceiveId(rs.getString("receiveId"));
 				vo.setReceiveSw(rs.getString("receiveSw"));
+				
 				vo.setReceiveDate(rs.getString("receiveDate"));
+				vo.setcReceiveDate(rs.getString("receiveDate"));
+				TimeDiff timeDiff = new TimeDiff();
+				vo.setnReceiveDate(timeDiff.timeDiff(vo.getcReceiveDate()));
 				
 				vos.add(vo);
 			}
@@ -76,6 +84,64 @@ public class WebMessageDAO {
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getSendId());
 			pstmt.setString(4, vo.getReceiveId());
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 한건의 메세지만 처리(읽어온다)한다.
+	public WebMessageVO getWmMessageOne(int idx, int mFlag) {
+		vo = new WebMessageVO();
+		try {
+			if(mFlag != 13) {	// 휴지통에서 내용보기가 아닐경우에만(즉, 받은메세지에서 내용볼때임) receiveSw의 'n'를 'r'로 바꾸고, 읽은날짜를 현재 날짜로 바꿔준다.
+				sql = "update webMessage set receiveSw='r', receiveDate=now() where idx=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+				pstmt.executeUpdate();
+				getConn.pstmtClose();
+			}
+			
+			sql = "select * from webMessage where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo = new WebMessageVO();
+			vo.setIdx(rs.getInt("idx"));
+			vo.setTitle(rs.getString("title"));
+			vo.setContent(rs.getString("content"));
+			vo.setSendId(rs.getString("sendId"));
+			vo.setSendSw(rs.getString("sendSw"));
+			vo.setSendDate(rs.getString("sendDate"));
+			vo.setReceiveId(rs.getString("receiveId"));
+			vo.setReceiveSw(rs.getString("receiveSw"));
+			vo.setReceiveDate(rs.getString("receiveDate"));
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
+	}
+
+	// 휴지통으로 메세지 보내기
+	public int wmDeleteCheck(int idx, int mSw) {
+		int res = 0;
+		try {
+			if(mSw == 11) {  // 받은 메세지에서 휴지통으로 보낼때 처리
+				sql = "update webMessage set receiveSw = 'g' where idx = ?";
+			}
+			else {
+				sql = "update webMessage set sendSw = 'g' where idx = ?";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();
 			res = 1;
 		} catch (SQLException e) {

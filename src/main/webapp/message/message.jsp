@@ -64,6 +64,8 @@
     else if(msg == "scheduleUpdateNo") msg = "일정 수정실패~~~";
     else if(msg == "wmInputOk") msg = "메세지를 전송했습니다.";
     else if(msg == "wmInputNo") msg = "메세지 전송 실패~~~";
+    else if(msg == "wmDeleteOk") msg = "메세지를 휴지통으로 보냈습니다.";
+    else if(msg == "wmDeleteNo") msg = "메세지가 휴지통으로 전송되지 않았습니다.";
 
     alert(msg);
     if(url != "") location.href = url;
