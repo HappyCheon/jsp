@@ -8,7 +8,29 @@
   <title>wmMessage.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script>
-  
+  	'use strict';
+  	
+  	function wmDeleteAll() {
+  		let ans = confirm("휴지통을 모두 비우시겠습니까?");
+  		if(!ans) return false;
+  		
+  		$.ajax({
+  			type : "post",
+  			url  : "${ctp}/wmDeleteAll.wm",
+  			success:function(res) {
+  				if(res == "msgDelOk") {
+  					alert("휴지통의 모든 메세지가 삭제 되었습니다.");
+  					location.reload();
+  				}
+  				else {
+  					alert("삭제 실패~~");
+  				}
+  			},
+  			error : function() {
+  				alert("전송실패~~");
+  			}
+  		});
+  	}
   </script>
   <style>
     #leftWindow {

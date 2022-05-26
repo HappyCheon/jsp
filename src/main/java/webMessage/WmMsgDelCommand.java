@@ -6,24 +6,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WmDeleteCheckCommand implements WebMessageInterface {
+public class WmMsgDelCommand implements WebMessageInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
-		int mSw = (request.getParameter("mSw")==null || request.getParameter("mSw").equals("")) ? 1 : Integer.parseInt(request.getParameter("mSw"));
-		
+		int mSw = request.getParameter("mFlag")==null ? 1 : Integer.parseInt(request.getParameter("mFlag"));
+
 		WebMessageDAO dao = new WebMessageDAO();
 		
 		int res = dao.wmDeleteCheck(idx, mSw);
 		
 		if(res == 1) {
-			request.setAttribute("msg", "wmDeleteOk");
+			response.getWriter().write("msgDelOk");
 		}
 		else {
-			request.setAttribute("msg", "wmDeleteNo");
+			response.getWriter().write("msgDelNo");
 		}
-		request.setAttribute("url", request.getContextPath()+"/wmMessage.wm?mSw=1");
 	}
 
 }

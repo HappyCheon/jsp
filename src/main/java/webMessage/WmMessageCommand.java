@@ -30,7 +30,7 @@ public class WmMessageCommand implements WebMessageInterface {
 			ArrayList<WebMessageVO> vos = dao.getWmMessageList(mid,mSw);
 			
 			request.setAttribute("vos", vos);
-			request.setAttribute("mFlag", mFlag);
+			//request.setAttribute("mFlag", mFlag);
 		}
 		request.setAttribute("mSw", mSw);
 	}

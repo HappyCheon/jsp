@@ -32,8 +32,10 @@
     </tr>
     <tr>
       <td colspan="2" class="text-center">
-        <input type="button" value="답장쓰기" onclick="location.href='wmMessage.wm?mSw=0&receiveId=${vo.sendId}';" class="btn btn-primary"/> &nbsp;
-        <input type="button" value="휴지통으로" onClick="location.href='wmDeleteCheck.wm?idx=${vo.idx}&mSw=${param.mFlag}';" class="btn btn-success"/> &nbsp;
+        <c:if test="${param.mFlag == 11}">
+        	<input type="button" value="답장쓰기" onclick="location.href='wmMessage.wm?mSw=0&receiveId=${vo.sendId}';" class="btn btn-primary"/> &nbsp;
+	        <input type="button" value="휴지통으로" onClick="location.href='wmDeleteCheck.wm?idx=${vo.idx}&mSw=${param.mFlag}';" class="btn btn-success"/> &nbsp;
+        </c:if>
         <input type="button" value="돌아가기" onclick="location.href='wmMessage.wm?mSw=1&mFlag=11';" class="btn btn-info"/>
       </td>
     </tr>

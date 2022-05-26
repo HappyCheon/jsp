@@ -52,6 +52,16 @@ public class WebMessageController extends HttpServlet {
 			command.execute(request, response);
 			viewPaged = "/message/message.jsp";
 		}
+		else if(com.equals("wmMsgDel")) {
+			command = new WmMsgDelCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("wmDeleteAll")) {
+			command = new WmDeleteAllCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPaged);
 		dispatcher.forward(request, response);

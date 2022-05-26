@@ -138,11 +138,40 @@ public class WebMessageDAO {
 				sql = "update webMessage set receiveSw = 'g' where idx = ?";
 			}
 			else {
-				sql = "update webMessage set sendSw = 'g' where idx = ?";
+				sql = "update webMessage set sendSw = 'x' where idx = ?";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 휴지통에 들어있는 모든 자료를 다 삭제한다. 이때 receiveSw와 sendSw가 모두 'x'이면 실제로 삭제시켜준다.
+	public int wmDeleteAll(String mid) {
+		int res = 0;
+		try {
+			sql = "update webMessage set receiveSw = 'x' where receiveId = ? and receiveSw = 'g'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+			getConn.pstmtClose();
+			
+			sql = "update webMessage set sendSw = 'x' where sendId = ? and sendSw = 'g'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+			getConn.pstmtClose();
+			
+			sql = "delete from webMessage where sendSw = 'x' and receiveSw = 'x'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
 			res = 1;
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());

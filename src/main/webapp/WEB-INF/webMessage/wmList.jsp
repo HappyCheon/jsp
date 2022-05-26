@@ -9,7 +9,36 @@
   <title>wmList.jsp</title>
   <%@ include file="/include/bs4.jsp" %>
   <script>
+    'use strict';
     setTimeout("location.reload()", 1000*5);
+    
+    function msgDel(idx) {
+    	let ans = confirm("선택된 메세지를 삭제하시겠습니까?");
+    	if(!ans) return false;
+    	
+    	let query = {
+    			idx  : idx,
+    			mFlag: 12
+    	}
+    	
+    	$.ajax({
+    		type  : "post",
+    		url   : "${ctp}/wmMsgDel.wm",
+    		data  : query,
+    		success:function(data) {
+    			if(data == "msgDelOk") {
+    				alert("메세지가 삭제되었습니다.");
+    				location.reload();
+    			}
+    			else {
+    				alert("메세지 실패~~");
+    			}
+    		},
+    		error  : function() {
+    			alert("전송 실패!!!");
+    		}
+    	});
+    }
   </script>
 </head>
 <body>
@@ -40,6 +69,9 @@
           	${vo.title}
           </a>
           <c:if test="${vo.receiveSw=='n'}"><img src="${ctp}/images/new.gif"/></c:if>
+          <c:if test="${mSw == 3}">
+            <a href="javascript:msgDel(${vo.idx})" class="badge badge-danger">삭제</a>
+          </c:if>
         </td>
         <td>
           <c:if test="${vo.nReceiveDate < 24}">${fn:substring(vo.receiveDate,11,19)}</c:if>
